@@ -1,24 +1,16 @@
+import Taro from "@tarojs/taro"
 class Session {
 
-  #localStorage
-  constructor () {
-    this.#localStorage = {}
-  }
-
   get(key) {
-    return this.#localStorage[key]
+    return Taro.getStorageSync(key)
   }
 
   set(key, value) {
-    this.#localStorage[key] = value
+    Taro.setStorageSync(key, value)
   }
 
   keyExist(key): Boolean {
-    return !!this.#localStorage[key]
-  }
-
-  get localStorage() {
-    return this.#localStorage
+    return !!Taro.getStorageSync(key)
   }
 }
 

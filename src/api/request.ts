@@ -1,5 +1,6 @@
 import Taro from "@tarojs/taro";
-import session from '../storage/session'
+import { getTokenInterceptor } from './interceptor'
+
 class Request {
   
   private _endpoint: string
@@ -18,75 +19,47 @@ class Request {
     return this._appid
   }
 
-  get () {
-
+  get (path, data?, options = {}) {
+    return this.request('GET', path, data, options)
   }
 
-  post () {
-
+  post (path, data, options = {}) {
+    return this.request('POST', path, data, options)
   }
 
-  put () {
-
+  put (path, data, options = {}) {
+    return this.request('PUT', path, data, options)
   }
 
-  delete () {
-
+  delete (path, data, options = {}) {
+    return this.request('DELETE', path, data, options)
   }
 
-  async getJwt() {
-    const jwtKey = 'jwt_code'
+  async request (method, path: string, data, options = {}) {
+    const requestUrl = `${this.endpoint}/${path}`
+    const header = Object.assign({
+      'content-type': 'application/json'
+    }, options['header'])
 
-    if (session.keyExist(jwtKey)) {
-      const jwtValue = session.get(jwtKey)
-      const heartbeat = await this.heartBeatTest(jwtValue)
-      if (heartbeat) {
-        return jwtValue
-      }
-    }
+    return new Promise(function(resolve, reject) {
+      // 拦截器，往 request.headers 追加 access_token
+      Taro.addInterceptor(getTokenInterceptor)
 
-    const loginCode = await Taro.login()
-    const res = await Taro.request({
-      method: 'POST',
-      url: `${this.endpoint}/check_openid`,
-      header: {
-        'X-WX-Code': loginCode.code
-      }
+      // 进行方法请求
+      Taro.request({
+        method: method,
+        url: requestUrl,
+        data: data,
+        header: header,
+        success: function(res) {
+          resolve(res)
+        },
+        fail: function(res) {
+          reject(res)
+        }
+      })
+
     })
-
-    if (res.statusCode === 200) {
-      const jwt = res.data.session
-      session.set(jwtKey, jwt)
-      return jwt
-    } else {
-      return ''
-    }
-  }
-
-  async request (method: string, path: string) {
-    // code -> jwt
-    
-    
-    // 随后用 jwt 去换
-    const result = Taro.request({
-      url: '',
-      header: {
-        'content-type': 'application/json',
-        // ''
-      }
-    })
-  }
-
-  // 测试 jwt 心跳
-  async heartBeatTest(jwt: string): Promise<Boolean> {
-    const result = await Taro.request({
-      url: `${this.endpoint}/heartbeat`,
-      header: {
-        'content-type': 'application/json'
-      }
-    })
-
-    return result.data
   }
 }
 
