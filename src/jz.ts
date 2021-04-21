@@ -34,7 +34,7 @@ class Jz {
     return this._appid
   }
 
-  get api(): Request {
+  get api(): Api {
     return this._api
   }
 }

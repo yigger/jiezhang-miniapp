@@ -3,8 +3,8 @@ import Statement from './logic/statement'
 
 export class Api extends Request {
 
-  private _statements = null
-  get statements() {
+  private _statements: Statement = null
+  get statements(): Statement {
     if (!!this._statements) {
       return this._statements
     } else {

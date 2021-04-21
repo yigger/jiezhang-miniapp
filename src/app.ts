@@ -7,9 +7,10 @@ class App extends Component {
   componentDidMount () {
     jz.bootstrap({
       appid: 'appid',
-      baseUrl: 'http://jz.com',
-      apiUrl: 'http://localhost:3000/api'
+      baseUrl: 'http://192.168.3.2:3002',
+      apiUrl: 'http://192.168.3.2:3002/api'
     })
+    jz.api.statements.list()
   }
 
   componentDidShow () {}
