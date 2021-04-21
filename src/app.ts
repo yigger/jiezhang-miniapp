@@ -5,25 +5,10 @@ import jz from './jz'
 class App extends Component {
 
   componentDidMount () {
-    jz.setup({
+    jz.bootstrap({
       appid: 'appid',
       baseUrl: 'http://jz.com',
       apiUrl: 'http://localhost:3000/api'
-    })
-
-    const p1 = new Promise(function(resolve, reject) {
-      jz.api.get('heartbeat')
-      resolve(1)
-    })
-    
-    const p2 = new Promise(function(resolve, reject) {
-      jz.api.get('heartbeat')
-      resolve(2)
-    })
-
-    const p3 = new Promise(function(resolve, reject) {
-      jz.api.get('heartbeat')
-      resolve(3)
     })
   }
 

@@ -1,14 +1,13 @@
-import Api from './api'
-import Request from './api/request'
+import { Api } from './api'
 
 class Jz {
 
   private _appid: string
   private _baseUrl: string
   private _apiUrl: string
-  private _api: Request
+  private _api: Api
 
-  setup ({
+  bootstrap ({
     appid = '',
     baseUrl = '',
     apiUrl = ''
@@ -16,7 +15,6 @@ class Jz {
     this._appid = appid
     this._baseUrl = baseUrl
     this._apiUrl = apiUrl
-
     this._api = new Api(this.apiUrl, this.appId)
   }
 

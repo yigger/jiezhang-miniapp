@@ -7,9 +7,9 @@ import './index.styl'
 
 export default class Index extends Component {
 
-  componentWillMount () { }
-
-  componentDidMount () { }
+  componentDidMount () {
+    
+  }
 
   componentWillUnmount () { }
 
@@ -20,16 +20,7 @@ export default class Index extends Component {
   render () {
     return (
       <View className='index'>
-        <View className=''>
-          <View>距离下个结算日剩余 21 天</View>
-          <View>默认账单本月支出</View>
-        </View>
-        <View>
-          本月预算
-        </View>
-        <View>
-          我的账单
-        </View>
+        
       </View>
     )
   }
