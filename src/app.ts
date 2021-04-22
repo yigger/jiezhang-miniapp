@@ -2,6 +2,8 @@ import { Component } from 'react'
 import './app.styl'
 import jz from './jz'
 
+import './assets/styl/index.styl'
+
 class App extends Component {
 
   componentDidMount () {
