@@ -1,5 +1,5 @@
-import Taro from "@tarojs/taro";
-import { getTokenInterceptor } from './interceptor'
+import Taro from "@tarojs/taro"
+import jz from '../jz'
 
 class Request {
   
@@ -35,6 +35,23 @@ class Request {
     return this.request('DELETE', path, data, options)
   }
 
+  async authAccessToken (): Promise<string> {
+    const loginCode = await Taro.login()
+    const res = await Taro.request({
+      method: 'POST',
+      url: `${this.endpoint}/check_openid`,
+      header: {
+        'X-WX-Code': loginCode.code
+      }
+    })
+
+    if (res.statusCode === 200) {
+      return res.data.session
+    }
+
+    return ''
+  }
+
   async request (method, path: string, data, options = {}) {
     const requestUrl = `${this.endpoint}/${path}`
     const header = Object.assign({
@@ -42,8 +59,7 @@ class Request {
     }, options['header'])
 
     return new Promise(function(resolve, reject) {
-      // 拦截器，往 request.headers 追加 access_token
-      Taro.addInterceptor(getTokenInterceptor)
+      header['X-WX-Skey'] = jz.accessToken
 
       // 进行方法请求
       Taro.request({

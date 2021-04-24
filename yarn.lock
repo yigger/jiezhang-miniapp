@@ -9979,6 +9979,23 @@ mobile-detect@^1.4.2:
   resolved "https://registry.npm.taobao.org/mobile-detect/download/mobile-detect-1.4.5.tgz?cache=0&sync_timestamp=1615628315030&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmobile-detect%2Fdownload%2Fmobile-detect-1.4.5.tgz#da393c3c413ca1a9bcdd9ced653c38281c0fb6ad"
   integrity sha1-2jk8PEE8oam83ZztZTw4KBwPtq0=
 
+mobx-react-lite@^2.2.0:
+  version "2.2.2"
+  resolved "https://registry.npm.taobao.org/mobx-react-lite/download/mobx-react-lite-2.2.2.tgz?cache=0&sync_timestamp=1611747960710&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmobx-react-lite%2Fdownload%2Fmobx-react-lite-2.2.2.tgz#87c217dc72b4e47b22493daf155daf3759f868a6"
+  integrity sha1-h8IX3HK05HsiST2vFV2vN1n4aKY=
+
+mobx-react@6.3.1:
+  version "6.3.1"
+  resolved "https://registry.npm.taobao.org/mobx-react/download/mobx-react-6.3.1.tgz#204f9756e42e19d91cb6598837063b7e7de87c52"
+  integrity sha1-IE+XVuQuGdkctlmINwY7fn3ofFI=
+  dependencies:
+    mobx-react-lite "^2.2.0"
+
+mobx@5.15.7:
+  version "5.15.7"
+  resolved "https://registry.nlark.com/mobx/download/mobx-5.15.7.tgz#b9a5f2b6251f5d96980d13c78e9b5d8d4ce22665"
+  integrity sha1-uaXytiUfXZaYDRPHjptdjUziJmU=
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/move-concurrently/download/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"

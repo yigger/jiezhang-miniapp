@@ -1,3 +1,5 @@
+const path = require('path');
+
 const config = {
   projectName: 'jz-taro',
   date: '2021-4-4',
@@ -59,6 +61,12 @@ const config = {
         }
       }
     }
+  },
+  alias: {
+    '@/jz': path.resolve(__dirname, '..', 'src/jz'),
+    '@/api': path.resolve(__dirname, '..', 'src/api'),
+    '@/components': path.resolve(__dirname, '..', 'src/components'),
+    '@/assets': path.resolve(__dirname, '..', 'src/assets'),
   }
 }
 

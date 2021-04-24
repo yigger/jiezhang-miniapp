@@ -1,10 +1,11 @@
 import { Component } from 'react'
 import { View, Text, Image } from '@tarojs/components'
+import jz from '@/jz'
 
 export default class Index extends Component {
 
   componentDidMount () {
-    
+    jz.api.statements.list()
   }
 
   Header () {
@@ -33,7 +34,9 @@ export default class Index extends Component {
 
   StatementList () {
     return (
-      <View>今日消费</View>
+      <View>
+        今日消费
+      </View>
     )
   }
 

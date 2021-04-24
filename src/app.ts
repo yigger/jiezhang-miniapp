@@ -5,21 +5,15 @@ import jz from './jz'
 import './assets/styl/index.styl'
 
 class App extends Component {
-
-  componentDidMount () {
+  async onLaunch () {
+    console.log('app launch')
     jz.bootstrap({
       appid: 'appid',
       baseUrl: 'http://192.168.3.2:3002',
       apiUrl: 'http://192.168.3.2:3002/api'
     })
-    jz.api.statements.list()
-  }
-
-  componentDidShow () {}
-
-  componentDidHide () {}
-
-  componentDidCatchError () {}
+    await jz.initialize()
+  } 
 
   // this.props.children 是将要会渲染的页面
   render () {

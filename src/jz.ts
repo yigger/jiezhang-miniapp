@@ -1,4 +1,5 @@
 import { Api } from './api'
+import { observable } from 'mobx';
 
 class Jz {
 
@@ -6,6 +7,8 @@ class Jz {
   private _baseUrl: string
   private _apiUrl: string
   private _api: Api
+
+  @observable accessToken: string
 
   bootstrap ({
     appid = '',
@@ -16,6 +19,22 @@ class Jz {
     this._baseUrl = baseUrl
     this._apiUrl = apiUrl
     this._api = new Api(this.apiUrl, this.appId)
+  }
+
+  async initialize () {
+    await this.authCode()
+  }
+
+  async authCode () {
+    // 先检查是否存在
+    const token = await this.api.authAccessToken()
+    if (token) {
+      this.accessToken = token
+      console.log(this.accessToken)
+    } else {
+      // 换取 accessToken 失败，提示用户
+
+    }
   }
 
   get baseUrl(): string {

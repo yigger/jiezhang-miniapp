@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/jz": ["./src/jz.ts"],
+      "@/api": ["./src/api/*"],
+      "@/components": ["./src/components/*"],
+      "@/assets": ["./src/assets/*"]
+    }
+  }
+}
