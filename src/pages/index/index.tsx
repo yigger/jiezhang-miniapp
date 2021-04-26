@@ -1,6 +1,40 @@
 import { Component } from 'react'
 import { View, Text, Image } from '@tarojs/components'
 import jz from '@/jz'
+import Statements from '@/components/Statements'
+
+function Budget () {
+  return (
+    <View>预算设置</View>
+  )
+}
+
+function Header ({ header }) {
+  return (
+    <View className="jz-pages__index-header p-relative">
+      <Image src={header.bg_avatar}></Image>
+      <View className="p-absolute p-bottom-0 p-left-0 col-pure-white w-100 pl-4 pr-4">
+        <View className="mb-4">
+          <View className='fs-32'>{header.position_1_human_name}</View>
+          <View className='fs-32 text-bold'>{header.position_1_amount}</View>
+        </View>
+        <View className="d-flex flex-between w-100 mb-4">
+          <View>{header.position_2_human_name} {header.position_2_amount}</View>
+          <View>{header.position_3_human_name} {header.position_3_amount}</View>
+        </View>
+      </View>
+    </View>
+  )
+}
+
+function StatementList ({ statements }) {
+  return (
+    <View>
+      <View className='header-with-color-bottom'>今日消费</View>
+      <Statements statements={statements}></Statements>
+    </View>
+  )
+}
 
 export default class Index extends Component {
 
@@ -19,53 +53,27 @@ export default class Index extends Component {
         "position_3_amount": "1.00",
         "position_3_human_name": "预算剩余",
         "show_notice_bar": false
-      }
+      },
+      "statements": []
     }
   }
 
   async componentDidMount () {
-    const st = await jz.api.main.header()
-    this.setState({ header: st.data })
-  }
-
-  Header () {
-    return (
-      <View className="jz-pages__index-header p-relative">
-        <Image src={this.state.header.bg_avatar}></Image>
-        <View className="p-absolute p-bottom-0 p-left-0 col-pure-white w-100 pl-4 pr-4">
-          <View className="mb-4">
-            <View className='fs-32'>{this.state.header.position_1_human_name}</View>
-            <View className='fs-32 text-bold'>{this.state.header.position_1_amount}</View>
-          </View>
-          <View className="d-flex flex-between w-100 mb-4">
-            <View>{this.state.header.position_2_human_name} {this.state.header.position_2_amount}</View>
-            <View>{this.state.header.position_3_human_name} {this.state.header.position_3_amount}</View>
-          </View>
-        </View>
-      </View>
-    )
-  }
-
-  Budget () {
-    return (
-      <View>预算设置</View>
-    )
-  }
-
-  StatementList () {
-    return (
-      <View>
-        今日消费
-      </View>
-    )
+    const [headerSt, statementSt] = await Promise.all([jz.api.main.header(), jz.api.main.statements()])
+    if (headerSt.isSuccess) {
+      this.setState({header: headerSt.data})
+    }
+    if (statementSt.isSuccess) {
+      this.setState({statements: statementSt.data})
+    }
   }
 
   render () {
     return (
       <View className='jz-pages__index'>
-        {this.Header()}
-        {this.Budget()}
-        {this.StatementList()}
+        <Header header={this.state.header}></Header>
+        <Budget></Budget>
+        <StatementList statements={this.state.statements}></StatementList>
       </View>
     )
   }

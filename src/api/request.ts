@@ -1,4 +1,5 @@
 import Taro from "@tarojs/taro"
+import HttpResult from './http-result'
 import jz from '../jz'
 
 class Request {
@@ -19,19 +20,19 @@ class Request {
     return this._appid
   }
 
-  get (path, data?, options = {}) {
+  get (path, data?, options = {}): Promise<HttpResult> {
     return this.request('GET', path, data, options)
   }
 
-  post (path, data, options = {}) {
+  post (path, data, options = {}): Promise<HttpResult> {
     return this.request('POST', path, data, options)
   }
 
-  put (path, data, options = {}) {
+  put (path, data, options = {}): Promise<HttpResult> {
     return this.request('PUT', path, data, options)
   }
 
-  delete (path, data, options = {}) {
+  delete (path, data, options = {}): Promise<HttpResult> {
     return this.request('DELETE', path, data, options)
   }
 
@@ -52,7 +53,7 @@ class Request {
     return ''
   }
 
-  async request (method, path: string, data, options = {}) {
+  async request (method, path: string, data, options = {}): Promise<HttpResult> {
     const requestUrl = `${this.endpoint}/${path}`
     const header = Object.assign({
       'content-type': 'application/json'
@@ -68,10 +69,12 @@ class Request {
         data: data,
         header: header,
         success: function(res) {
-          resolve(res)
+          const result = new HttpResult(res)
+          resolve(result)
         },
         fail: function(res) {
-          reject(res)
+          const result = new HttpResult(res)
+          reject(result)
         }
       })
 
