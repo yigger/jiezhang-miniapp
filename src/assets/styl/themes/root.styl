@@ -1,0 +1,36 @@
+$header-height ?= 68PX
+$bottom-height ?= 60PX
+
+.page-root-component {
+  display flex
+  flex-direction column
+  height 100vh
+
+  > .page-root__header-component {
+    display flex
+    align-items center
+    width 100%
+    height $header-height
+
+    padding-left 1em
+    padding-right 100PX
+    background $primaryBgColor
+    color $primaryBgTextColor
+    transition $header-height 200ms
+  }
+
+  > .page-root__tab-bar-component {
+    background #303643
+    color white
+    display flex
+    align-items center
+    height $bottom-height
+    width 100%
+  }
+
+  > .page-root__main-content {
+    flex: 1
+    max-height: "calc(100% - %s - %s)" % ($header-height $bottom-height)
+    overflow: scroll
+  }
+}

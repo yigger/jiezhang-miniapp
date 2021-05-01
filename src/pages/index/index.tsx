@@ -2,6 +2,7 @@ import { Component } from 'react'
 import { View, Text, Image } from '@tarojs/components'
 import jz from '@/jz'
 import Statements from '@/components/Statements'
+import Root from '@/components/common/Root'
 
 function Budget () {
   return (
@@ -15,8 +16,8 @@ function Header ({ header }) {
       <Image src={header.bg_avatar}></Image>
       <View className="p-absolute p-bottom-0 p-left-0 col-pure-white w-100 pl-4 pr-4">
         <View className="mb-4">
-          <View className='fs-32'>{header.position_1_human_name}</View>
-          <View className='fs-32 text-bold'>{header.position_1_amount}</View>
+          <View className='fs-18'>{header.position_1_human_name}</View>
+          <View className='fs-18 text-bold'>{header.position_1_amount}</View>
         </View>
         <View className="d-flex flex-between w-100 mb-4">
           <View>{header.position_2_human_name} {header.position_2_amount}</View>
@@ -50,7 +51,7 @@ export default class Index extends Component {
         "position_1_human_name": "今日支出",
         "position_2_amount": "0.00",
         "position_2_human_name": "本月支出",
-        "position_3_amount": "1.00",
+        "position_3_amount": "0.00",
         "position_3_human_name": "预算剩余",
         "show_notice_bar": false
       },
@@ -70,11 +71,15 @@ export default class Index extends Component {
 
   render () {
     return (
-      <View className='jz-pages__index'>
-        <Header header={this.state.header}></Header>
-        <Budget></Budget>
-        <StatementList statements={this.state.statements}></StatementList>
-      </View>
+      <Root
+        header-title='首页'
+      >
+        <View className='jz-pages__index'>
+          <Header header={this.state.header}></Header>
+          <Budget></Budget>
+          <StatementList statements={this.state.statements}></StatementList>
+        </View>
+      </Root>
     )
   }
 }

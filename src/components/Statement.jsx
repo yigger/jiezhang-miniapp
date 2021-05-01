@@ -9,9 +9,9 @@ export default function Statement({ statement }) {
           <Image src={statement.icon_path}></Image>
         </View>
         <View className='flex-1 ml-6'>
-          <View className='fs-28 col-text mb-1'>{statement.category}</View>
-          <View className='fs-24 col-text-mute mb-1'>广东省深圳市xxx</View>
-          <View className='fs-24 col-text-mute mb-1'>{statement.timeStr} {statement.asset}</View>
+          <View className='fs-14 col-text mb-1'>{statement.category}</View>
+          { statement.description && (<View className='fs-14 col-text-mute mb-1'>{statement.description}</View> )}
+          <View className='fs-14 col-text-mute mb-1'>{statement.timeStr} {statement.asset}</View>
         </View>
       </View>
       <View className={`col-${statement.type} text-bold`}>{statement.money}</View>
