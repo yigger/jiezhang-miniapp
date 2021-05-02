@@ -4,7 +4,7 @@
 
 for fontSize in (12..32)
   .fs-{fontSize}
-    font-size fontSize PX
+    font-size "%sPX !important" % (fontSize)
 
 .text-align-left {
   text-align: left;

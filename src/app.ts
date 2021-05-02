@@ -1,7 +1,7 @@
 import { Component } from 'react'
-import './app.styl'
 import jz from './jz'
 
+import './assets/fonts/index.styl'
 import './assets/styl/index.styl'
 
 class App extends Component {

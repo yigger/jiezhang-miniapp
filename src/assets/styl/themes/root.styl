@@ -20,12 +20,21 @@ $bottom-height ?= 60PX
   }
 
   > .page-root__tab-bar-component {
-    background #303643
-    color white
     display flex
     align-items center
     height $bottom-height
     width 100%
+    border-top: 1PX solid $borderColor
+    > view {
+      &:not(:last-child) {
+        height: 100%
+        border-right: 1PX solid #f9f9f9
+      }
+
+      &.active {
+        color: $primaryColor
+      }
+    }
   }
 
   > .page-root__main-content {

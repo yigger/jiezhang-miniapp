@@ -1,12 +1,13 @@
 import { Api } from './api'
-import { observable } from 'mobx';
-
+import { observable } from 'mobx'
+import Store from './store'
 class Jz {
 
   private _appid: string
   private _baseUrl: string
   private _apiUrl: string
   private _api: Api
+  private _store: Store
 
   @observable accessToken: string
 
@@ -19,6 +20,7 @@ class Jz {
     this._baseUrl = baseUrl
     this._apiUrl = apiUrl
     this._api = new Api(this.apiUrl, this.appId)
+    this._store = new Store()
   }
 
   async initialize () {
@@ -55,6 +57,10 @@ class Jz {
 
   get api(): Api {
     return this._api
+  }
+
+  get store(): Store {
+    return this._store
   }
 }
 
