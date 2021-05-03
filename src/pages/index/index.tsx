@@ -71,12 +71,15 @@ export default class Index extends Component {
 
   render () {
     return (
-      <Root
-        header-title='首页'
-      >
+      <Root>
         <View className='jz-pages__index'>
           <Header header={this.state.header}></Header>
           <Budget></Budget>
+          <View onClick={() => {
+            console.log('onClick')
+            jz.store.currentRouteName = '切换啦'
+            jz.store.setTheme('pure')
+          }}>点击切换</View>
           <StatementList statements={this.state.statements}></StatementList>
         </View>
       </Root>

@@ -1,5 +1,8 @@
+import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import React from 'react'
+import {observer} from "mobx-react"
+import jz from '@/jz'
 
 function RootHeader({ title }) {
   return (
@@ -16,24 +19,26 @@ function RootTabBar() {
     {
       name: '首页',
       icon: 'jcon-home-fill1',
-      activeIcon: 'jcon-home-fill1',
-      active: true
+      active: true,
+      redirectTo: '/pages/index/index'
     },
     {
       name: '统计',
       icon: 'jcon-piechart-circle-fil',
-      activeIcon: 'jcon-piechart-circle-fil',
-      active: false
+      active: false,
+      redirectTo: '/pages/statistic/index'
     },
     {
       name: '资产',
       icon: 'jcon-accountbook-fill',
-      active: false
+      active: false,
+      redirectTo: '/pages/statistic/index'
     },
     {
       name: '我的',
       icon: 'jcon-account-fill',
-      active: false
+      active: false,
+      redirectTo: '/pages/statistic/index'
     }
   ]
 
@@ -42,7 +47,12 @@ function RootTabBar() {
       {
         headers.map((header) => {
           return (
-            <View className={`d-flex flex-1 flex-column flex-center ${header.active ? 'active' : ''}`}>
+            <View
+              className={`d-flex flex-1 flex-column flex-center ${header.active ? 'active' : ''}`}
+              onClick={() => {
+                Taro.redirectTo({ url: header.redirectTo })
+              }}
+            >
               <View className={`iconfont fs-24 mt-2 mb-2 ${header.icon}`}></View>
               <View>{header.name}</View>
             </View>
@@ -52,18 +62,18 @@ function RootTabBar() {
     </View>
   )
 }
-
-export default class Root extends React.Component {
+@observer
+class Root extends React.Component {
   constructor(props) {
     super(props)
   }
 
   render () {
     return (
-      <View className='jz-theme-default'>
+      <View className={`jz-theme-${jz.store.themeClassName}`}>
         <View className='page-root-component'>
           <RootHeader
-            title={this.props['header-title']}
+            title={jz.store.currentRouteName}
           />
           <View className='page-root__main-content'>
             {this.props.children}
@@ -74,3 +84,5 @@ export default class Root extends React.Component {
     )
   }
 }
+
+export default Root
