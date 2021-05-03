@@ -2,9 +2,10 @@ $header-height ?= 68PX
 $bottom-height ?= 60PX
 
 .page-root-component {
+  position relative
   display flex
   flex-direction column
-  height 100vh
+  // height 100vh
 
   > .page-root__header-component {
     display flex
@@ -19,11 +20,18 @@ $bottom-height ?= 60PX
     transition $header-height 200ms
 
     .header-title {
-      color: $primaryColor
+      color: $primaryBgTextColor
     }
   }
 
   > .page-root__tab-bar-component {
+    position fixed
+    left 0
+    bottom 0
+    right 0
+    z-index 999
+    background #ffffff
+
     display flex
     align-items center
     height $bottom-height
@@ -43,7 +51,8 @@ $bottom-height ?= 60PX
 
   > .page-root__main-content {
     flex: 1
-    max-height: "calc(100% - %s - %s)" % ($header-height $bottom-height)
-    overflow: scroll
+    margin-bottom $bottom-height
+    // max-height: "calc(100% - %s - %s)" % ($header-height $bottom-height)
+    // overflow: scroll
   }
 }

@@ -73,7 +73,7 @@ class Root extends React.Component {
       <View className={`jz-theme-${jz.store.themeClassName}`}>
         <View className='page-root-component'>
           <RootHeader
-            title={jz.store.currentRouteName}
+            title={jz.store.currentPageName}
           />
           <View className='page-root__main-content'>
             {this.props.children}

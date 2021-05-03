@@ -1,6 +1,6 @@
 import { Api } from './api'
 import { observable } from 'mobx'
-import Store from './store'
+import Store from './stores'
 class Jz {
 
   private _appid: string

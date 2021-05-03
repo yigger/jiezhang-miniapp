@@ -1,8 +1,9 @@
-import { Component } from 'react'
+import React from 'react'
 import { View, Text, Image } from '@tarojs/components'
 import jz from '@/jz'
 import Statements from '@/components/Statements'
 import Root from '@/components/common/Root'
+import { Button } from '@/src/common/components'
 
 function Budget () {
   return (
@@ -30,14 +31,14 @@ function Header ({ header }) {
 
 function StatementList ({ statements }) {
   return (
-    <View>
+    <View className='m-3'>
       <View className='header-with-color-bottom'>今日消费</View>
       <Statements statements={statements}></Statements>
     </View>
   )
 }
 
-export default class Index extends Component {
+export default class Index extends React.Component {
 
   constructor (props) {
     super(props)
@@ -74,12 +75,8 @@ export default class Index extends Component {
       <Root>
         <View className='jz-pages__index'>
           <Header header={this.state.header}></Header>
-          <Budget></Budget>
-          <View onClick={() => {
-            console.log('onClick')
-            jz.store.currentRouteName = '切换啦'
-            jz.store.setTheme('pure')
-          }}>点击切换</View>
+          {/* <Budget></Budget> */}
+          <Button title='记一笔'/>
           <StatementList statements={this.state.statements}></StatementList>
         </View>
       </Root>
