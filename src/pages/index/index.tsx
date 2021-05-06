@@ -1,4 +1,5 @@
 import React from 'react'
+import Taro from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import jz from '@/jz'
 import Statements from '@/components/Statements'
@@ -72,11 +73,18 @@ export default class Index extends React.Component {
 
   render () {
     return (
-      <Root>
+      <Root
+        withTabBar
+      >
         <View className='jz-pages__index'>
           <Header header={this.state.header}></Header>
           {/* <Budget></Budget> */}
-          <Button title='记一笔'/>
+          <Button
+            title='记一笔'
+            onClick={() => {
+              Taro.navigateTo({ url: '/pages/statement/form' })
+            }}
+          />
           <StatementList statements={this.state.statements}></StatementList>
         </View>
       </Root>

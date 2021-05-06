@@ -1,7 +1,8 @@
 export default {
   pages: [
     'pages/index/index',
-    'pages/statistic/index'
+    'pages/statistic/index',
+    'pages/statement/form'
   ],
   window: {
     navigationBarTitleText: 'WeChat',

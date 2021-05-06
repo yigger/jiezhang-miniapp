@@ -11,6 +11,12 @@ $flexJustifyContentEnums := {
 
 $flexColumnPercentUnits := (5 10 15 20 25 30 33 35 40 45 50 55 60 65 70 75 80 85 90 95 100)
 
+loop-map-callback(maps, callback) {
+  for key, value in maps {
+    callback(key, value)
+  }
+}
+
 unfold-justify-content(selector, value) {
   {selector} {
     justify-content value
@@ -158,20 +164,6 @@ for percentValue in $flexColumnPercentUnits {
     flex-basis unit(percentValue, '%')
   }
 }
-
-//.d-flex, .d-iflex {
-//  & > {$flexChildSelector} {
-//    &.grow {
-//      flex-grow 1
-//      flex-shrink 0
-//    }
-//
-//    &.shrink {
-//      flex-grow 0
-//      flex-shrink 1
-//    }
-//  }
-//}
 
 .height-expand {
   height 100%

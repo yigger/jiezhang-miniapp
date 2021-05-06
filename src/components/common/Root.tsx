@@ -64,21 +64,30 @@ function RootTabBar() {
 }
 @observer
 class Root extends React.Component {
+  private withHeader: boolean = true
+  private withTabBar: boolean = false
+
   constructor(props) {
     super(props)
+    if (typeof props.withHeader !== 'undefined') {
+      this.withHeader = props.withHeader
+    }
+    this.withTabBar = !!props?.withTabBar
   }
 
   render () {
     return (
       <View className={`jz-theme-${jz.store.themeClassName}`}>
         <View className='page-root-component'>
-          <RootHeader
-            title={jz.store.currentPageName}
-          />
+          { this.withHeader
+            && (<RootHeader
+                  title={jz.store.currentPageName}
+                />)
+          }
           <View className='page-root__main-content'>
             {this.props.children}
           </View>
-          <RootTabBar></RootTabBar>
+          { this.withTabBar && <RootTabBar /> }
         </View>
       </View>
     )
