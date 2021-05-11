@@ -1,33 +1,51 @@
 import React from 'react'
 import { View, Image } from '@tarojs/components'
+import { Loading } from '@/src/common/components'
 
 export default function CategorySelect({
+  title,
   data,
   frequent,
-  handleClick
+  handleClick,
+  setActive,
+  loading
 }) {
+
   return (
     <View className='statement-form__category-select'>
+      {/* 蒙板 */}
+      <View className='category-select__mask' onClick={() => setActive(false)}></View>
+      
       <View className='category-select__main'>
-        {/* 常用分类 */}
-          <CategoryContent
-            title='常用分类'
-            data={frequent}
-            handleClick={handleClick}
-          />
-
-          {/* 分类列表 */}
-          { 
-            data.map((item) => {
-              return(
+        <View className='category-select__main-title'>
+          { title }
+        </View>
+        <View className='category-select__main-content'>
+          {
+            loading ? <Loading active={true} /> : (
+              <>
                 <CategoryContent
-                  title={item.name}
-                  data={item.childs}
+                  title='常用分类'
+                  data={frequent}
                   handleClick={handleClick}
                 />
-              )
-            })
+
+                {
+                  data.map((item) => {
+                    return(
+                      <CategoryContent
+                        title={item.name}
+                        data={item.childs}
+                        handleClick={handleClick}
+                      />
+                    )
+                  })
+                }
+              </>
+            )
           }
+          
+        </View>
       </View>
     </View>
   )
@@ -40,7 +58,7 @@ function CategoryContent({ title, data, handleClick }) {
       <View className='category-select__category-list'>
         {data.map((item) => {
           return (
-            <View className='category-list__item' onClick={() => { handleClick(item) }}>
+            <View className='category-list__item' onClick={(e) => { handleClick(e, item) }}>
               <View><Image src={item.icon_path}></Image></View>
               <View>{item.name}</View>
             </View>
