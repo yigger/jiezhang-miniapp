@@ -1,10 +1,57 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Taro from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import jz from '@/jz'
 import Statements from '@/components/Statements'
 import Root from '@/components/common/Root'
 import { Button } from '@/src/common/components'
+
+export default function Index() {
+  const [header, setHeader] = useState({
+    "bg_avatar": "",
+    "has_no_read": false,
+    "notice_bar_path": null,
+    "notice_text": null,
+    "position_1_amount": "0.00",
+    "position_1_human_name": "今日支出",
+    "position_2_amount": "0.00",
+    "position_2_human_name": "本月支出",
+    "position_3_amount": "0.00",
+    "position_3_human_name": "预算剩余",
+    "show_notice_bar": false
+  })
+  const [statements, setStatements] = useState([])
+  useEffect(() => {
+    async function initData() {
+      const [headerSt, statementSt] = await Promise.all([jz.api.main.header(), jz.api.main.statements()])
+      if (headerSt.isSuccess) {
+        setHeader(headerSt.data)
+      }
+      if (statementSt.isSuccess) {
+        setStatements(statementSt.data)
+      }
+    }
+    initData()
+  }, [])
+
+  return (
+    <Root
+      withTabBar
+    >
+      <View className='jz-pages__index'>
+        <Header header={header}></Header>
+        {/* <Budget></Budget> */}
+        <Button
+          title='记一笔'
+          onClick={() => {
+            Taro.navigateTo({ url: '/pages/statement/form' })
+          }}
+        />
+        <StatementList statements={statements}></StatementList>
+      </View>
+    </Root>
+  )
+}
 
 function Budget () {
   return (
@@ -37,57 +84,4 @@ function StatementList ({ statements }) {
       <Statements statements={statements}></Statements>
     </View>
   )
-}
-
-export default class Index extends React.Component {
-
-  constructor (props) {
-    super(props)
-    this.state = {
-      "header": {
-        "bg_avatar": "",
-        "has_no_read": false,
-        "notice_bar_path": null,
-        "notice_text": null,
-        "position_1_amount": "0.00",
-        "position_1_human_name": "今日支出",
-        "position_2_amount": "0.00",
-        "position_2_human_name": "本月支出",
-        "position_3_amount": "0.00",
-        "position_3_human_name": "预算剩余",
-        "show_notice_bar": false
-      },
-      "statements": []
-    }
-  }
-
-  async componentDidMount () {
-    const [headerSt, statementSt] = await Promise.all([jz.api.main.header(), jz.api.main.statements()])
-    if (headerSt.isSuccess) {
-      this.setState({header: headerSt.data})
-    }
-    if (statementSt.isSuccess) {
-      this.setState({statements: statementSt.data})
-    }
-  }
-
-  render () {
-    return (
-      <Root
-        withTabBar
-      >
-        <View className='jz-pages__index'>
-          <Header header={this.state.header}></Header>
-          {/* <Budget></Budget> */}
-          <Button
-            title='记一笔'
-            onClick={() => {
-              Taro.navigateTo({ url: '/pages/statement/form' })
-            }}
-          />
-          <StatementList statements={this.state.statements}></StatementList>
-        </View>
-      </Root>
-    )
-  }
 }
