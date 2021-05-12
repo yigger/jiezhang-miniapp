@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import { View, Input, Picker } from '@tarojs/components'
+import React, { useEffect, useState } from 'react'
+import { View, Input, Picker, Text } from '@tarojs/components'
 import { Button } from '@/src/common/components'
 import CategorySelect from './CategorySelect'
 import jz from '@/jz'
+import { format } from 'date-fns'
 
 export default function ExpendForm() {
   // 提交的表单数据
@@ -10,7 +11,9 @@ export default function ExpendForm() {
     type: 'expend',
     amount: '0',
     category_id: 0,
-    asset_id: 0
+    asset_id: 0,
+    date: format(new Date(), 'yyyy-MM-dd'),
+    time: format(new Date(), 'hh:mm'),
   })
   const [categoryName, setCategoryName] = useState('请选择分类')
   const [assetName, setAssetName] = useState('请选择资产')
@@ -25,12 +28,26 @@ export default function ExpendForm() {
     frequent: [],
     data: []
   })
+  const [categoryFrequent, setCategoryFrequent] = useState([])
+  const [assetFrequent, setAssetFrequent] = useState([])
+
+  useEffect(() => {
+    // 初始化常用资产
+    jz.api.statements.assetFrequent().then((res) => {
+      console.log(res.data)
+      setAssetFrequent(res.data)
+    })
+    // 初始化常用分类
+    jz.api.statements.categoryFrequent().then((res) => {
+      setCategoryFrequent(res.data)
+    })
+  }, [])
 
   // 选中分类后的 callback
   function handleCategoryItemClick (e, item) {
     console.log(item)
     setCategoryName(item.name)
-    setForm(Object.assign(form, { category_id: item.id }))
+    setForm({ ...form, category_id: item.id })
     setCategorySelectActive(false)
   }
 
@@ -38,7 +55,7 @@ export default function ExpendForm() {
   function handleAssetItemClick (e, item) {
     console.log(item)
     setAssetName(item.name)
-    setForm(Object.assign(form, { asset_id: item.id }))
+    setForm({ ...form, asset_id: item.id })
     setAssetSelectActive(false)
   }
 
@@ -69,7 +86,7 @@ export default function ExpendForm() {
           <View>
             <View className='f-column d-flex p-4 text-align-right flex-between flex-center'>
               <View>金额</View>
-              <View><Input type='text' value={form.amount} onInput={({ detail }) => { setForm(Object.assign(form, { amount: detail.value })) }} placeholder='0.00'></Input></View>
+              <View><Input type='text' value={form.amount} onInput={({ detail }) => { setForm({ ...form, amount: detail.value }) }} placeholder='0.00'></Input></View>
             </View>
           </View>
     
@@ -78,11 +95,17 @@ export default function ExpendForm() {
               <View>分类</View>
               <View onClick={getCategories}>{categoryName}</View>
             </View>
-            <View className='statement-form__quick-select'>
-              <View className='ui label'>日常用品</View>
-              <View className='ui label'>一日三餐</View>
-              <View className='ui label'>游戏</View>
-            </View>
+              {
+                categoryFrequent.length > 0 ? 
+                (<View className='statement-form__quick-select'>
+                  <Text className='col-text-mute'>快捷筛选：</Text>
+                  {
+                    categoryFrequent.map((item) => {
+                      return <View className='ui label' onClick={(e) => handleCategoryItemClick(e, item)}>{item.name}</View>
+                    })
+                  }
+                </View>) : null
+              }
           </View>
     
           <View>
@@ -90,20 +113,30 @@ export default function ExpendForm() {
               <View>资产</View>
               <View onClick={getAssets}>{assetName}</View>
             </View>
-            <View className='statement-form__quick-select'>
-              <View className='ui label'>建设银行</View>
-              <View className='ui label'>微信支付</View>
-              <View className='ui label'>支付宝</View>
-            </View>
+            {
+              assetFrequent.length > 0 ? 
+              (<View className='statement-form__quick-select'>
+                <Text className='col-text-mute'>快捷筛选：</Text>
+                {
+                  assetFrequent.map((item) => {
+                    return <View className='ui label' onClick={(e) => handleAssetItemClick(e, item)}>{item.name}</View>
+                  })
+                }
+              </View>) : null
+            }
           </View>
     
           <View>
             <View className='f-column d-flex p-4 text-align-right flex-between flex-center'>
               <View>日期</View>
               <View>
-                <Picker mode='date'>
+                <Picker
+                  mode='date'
+                  value={form.date}
+                  onChange={({detail}) => setForm({ ...form, date: detail.value })}
+                >
                   <View className='picker'>
-                    2021-05-04
+                    { form.date }
                   </View>
                 </Picker>
               </View>
@@ -114,9 +147,13 @@ export default function ExpendForm() {
             <View className='f-column d-flex p-4 text-align-right flex-between flex-center'>
               <View>时间</View>
               <View>
-                <Picker mode='time'>
+                <Picker
+                  mode='time'
+                  value={form.time}
+                  onChange={({detail}) => setForm({ ...form, time: detail.value })}
+                >
                   <View className='picker'>
-                    21:16
+                    { form.time }
                   </View>
                 </Picker>
               </View>

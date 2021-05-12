@@ -44,7 +44,6 @@ export default function CategorySelect({
               </>
             )
           }
-          
         </View>
       </View>
     </View>
