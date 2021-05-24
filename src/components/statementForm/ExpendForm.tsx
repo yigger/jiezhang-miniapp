@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, Input, Picker, Text } from '@tarojs/components'
-import { Button } from '@/src/common/components'
+import { Button, Calculator } from '@/src/common/components'
 import CategorySelect from './CategorySelect'
 import jz from '@/jz'
 import { format } from 'date-fns'
@@ -20,6 +20,7 @@ export default function ExpendForm() {
   const [categorySelectActive, setCategorySelectActive] = useState(false)
   const [assetSelectActive, setAssetSelectActive] = useState(false)
   const [selectLoading, setSelectLoading] = useState(false)
+  const [calculatorActive, setCalculatorActive] = useState(false)
   const [categoryList, setCategoryList] = useState({
     frequent: [],
     data: []
@@ -44,7 +45,7 @@ export default function ExpendForm() {
   }, [])
 
   // 选中分类后的 callback
-  function handleCategoryItemClick (e, item) {
+  const handleCategoryItemClick = (e, item) => {
     console.log(item)
     setCategoryName(item.name)
     setForm({ ...form, category_id: item.id })
@@ -52,14 +53,14 @@ export default function ExpendForm() {
   }
 
   // 选中资产后的 callback
-  function handleAssetItemClick (e, item) {
+  const handleAssetItemClick = (e, item) => {
     console.log(item)
     setAssetName(item.name)
     setForm({ ...form, asset_id: item.id })
     setAssetSelectActive(false)
   }
 
-  async function getCategories() {
+  const getCategories = async () => {
     setCategorySelectActive(true)
     setSelectLoading(true)
     const st = await jz.api.statements.categoriesWithForm()
@@ -69,7 +70,7 @@ export default function ExpendForm() {
     }
   }
 
-  async function  getAssets() {
+  const getAssets = async () => {
     setAssetSelectActive(true)
     setSelectLoading(true)
     const st = await jz.api.statements.assetsWithForm()
@@ -79,14 +80,29 @@ export default function ExpendForm() {
     }
   }
 
+  // 计算器的过程回调
+  const calculatorProcess = (process) => {
+    setForm({...form, amount: process})
+  }
+
+  const calculatorSubmit = (result) => {
+    console.log(result)
+    setForm({...form, amount: result})
+    setCalculatorActive(false)
+  }
+
+  const submit = () => {
+
+  }
+
   return (
     <View>
       <View>
         <View className='statement-form__expend-form'>
           <View>
-            <View className='f-column d-flex p-4 text-align-right flex-between flex-center'>
+            <View className='f-column d-flex p-4 text-align-right flex-between flex-center' onClick={() => setCalculatorActive(true)}>
               <View>金额</View>
-              <View><Input type='text' value={form.amount} onInput={({ detail }) => { setForm({ ...form, amount: detail.value }) }} placeholder='0.00'></Input></View>
+              <View>{form.amount}</View>
             </View>
           </View>
     
@@ -161,7 +177,7 @@ export default function ExpendForm() {
           </View>
 
           <View>
-            <Button title='提交'></Button>
+            <Button title='提交' onClick={submit}></Button>
           </View>
         </View>
       </View>
@@ -188,6 +204,16 @@ export default function ExpendForm() {
            setActive={setAssetSelectActive}
            loading={selectLoading}
          />)
+      }
+
+      {
+        calculatorActive && 
+        <Calculator
+          setActive={setCalculatorActive}
+          submitCallback={calculatorSubmit}
+          processCallback={calculatorProcess}
+          defaultNum={form.amount}
+        />
       }
     </View>
   )
