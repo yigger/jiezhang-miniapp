@@ -1,5 +1,5 @@
 import Request from '../request'
-
+import { StatementForm } from '../types'
 export default class Statement extends Request {
   list () {
     // this.get('')
@@ -24,7 +24,13 @@ export default class Statement extends Request {
     })
   }
 
+  // 获取最近常用的三个资产
   assetFrequent() {
     return this.get('/statements/asset_frequent')
+  }
+
+  // 创建账单
+  create(data: StatementForm) {
+    return this.post('/statements', data)
   }
 }

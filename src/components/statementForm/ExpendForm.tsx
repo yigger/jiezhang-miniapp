@@ -14,6 +14,7 @@ export default function ExpendForm() {
     asset_id: 0,
     date: format(new Date(), 'yyyy-MM-dd'),
     time: format(new Date(), 'hh:mm'),
+    description: ''
   })
   const [categoryName, setCategoryName] = useState('请选择分类')
   const [assetName, setAssetName] = useState('请选择资产')
@@ -86,13 +87,27 @@ export default function ExpendForm() {
   }
 
   const calculatorSubmit = (result) => {
-    console.log(result)
     setForm({...form, amount: result})
     setCalculatorActive(false)
   }
 
-  const submit = () => {
+  const submit = async () => {
+    if (form.amount === '0') {
+      // 请输入账单金额
+    }
 
+    if (form.asset_id === '0') {
+      // 请输入资产类型
+
+    }
+
+    if (form.category_id === '0') {
+      // 请输入分类详情
+      
+    }
+
+    const st = await jz.api.statements.create(form)
+    console.log(st)
   }
 
   return (
