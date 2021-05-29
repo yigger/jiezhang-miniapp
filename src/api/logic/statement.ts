@@ -6,7 +6,7 @@ export default class Statement extends Request {
   }
 
   // 获取创建账单时的分类列表
-  categoriesWithForm(type = 'expend') {
+  categoriesWithForm(type: 'income' | 'expend') {
     return this.get('/statements/categories', {
       type: type
     })
@@ -18,7 +18,7 @@ export default class Statement extends Request {
   }
 
   // 获取最近常用的三个分类
-  categoryFrequent(type = 'expend') {
+  categoryFrequent(type: 'income' | 'expend') {
     return this.get('/statements/category_frequent', {
       type: type
     })

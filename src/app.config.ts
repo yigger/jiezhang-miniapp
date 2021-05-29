@@ -1,7 +1,6 @@
 export default {
   pages: [
-    'pages/index/index',
-    'pages/statistic/index',
+    'pages/home/index',
     'pages/statement/form'
   ],
   window: {

@@ -4,10 +4,8 @@ import Root from '@/components/common/Root'
 
 export default function Index () {
   return (
-      <Root header-title='统计'>
-        <View className='jz-pages__statistic'>
-          新页面
-        </View>
-      </Root>
-    )
+    <View className='jz-pages__statistic'>
+      统计页面
+    </View>
+  )
 }

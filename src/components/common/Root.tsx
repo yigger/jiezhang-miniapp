@@ -1,40 +1,46 @@
-import Taro from '@tarojs/taro'
-import { View } from '@tarojs/components'
-import React from 'react'
-import {observer} from "mobx-react"
+import React, { useContext } from 'react'
 import jz from '@/jz'
+import { View } from '@tarojs/components'
+import { RootContext } from '@/src/context/RootContext'
 
-function RootHeader({ title }) {
+const RootHeader: React.FC = () => {
+  const context = useContext(RootContext)
   return (
     <View className='page-root__header-component'>
       <View className='header-title fs-16'>
-        { title }
+        { context.pageTitle }
       </View>
     </View>
   )
 }
 
-function RootTabBar() {
+const RootTabBar: React.FC = ({
+  switchSection
+}) => {
   const headers = [
     {
+      page: 'index',
       name: '首页',
       icon: 'jcon-home-fill1',
       active: true,
       redirectTo: '/pages/index/index'
     },
     {
+      page: 'statistic',
       name: '统计',
       icon: 'jcon-piechart-circle-fil',
       active: false,
       redirectTo: '/pages/statistic/index'
     },
     {
+      page: 'asset',
       name: '资产',
       icon: 'jcon-accountbook-fill',
       active: false,
       redirectTo: '/pages/statistic/index'
     },
     {
+      page: 'profile',
       name: '我的',
       icon: 'jcon-account-fill',
       active: false,
@@ -49,9 +55,7 @@ function RootTabBar() {
           return (
             <View
               className={`d-flex flex-1 flex-column flex-center ${header.active ? 'active' : ''}`}
-              onClick={() => {
-                Taro.redirectTo({ url: header.redirectTo })
-              }}
+              onClick={() => switchSection(header)}
             >
               <View className={`iconfont fs-24 mt-2 mb-2 ${header.icon}`}></View>
               <View>{header.name}</View>
@@ -62,36 +66,27 @@ function RootTabBar() {
     </View>
   )
 }
-@observer
-class Root extends React.Component {
-  private withHeader: boolean = true
-  private withTabBar: boolean = false
 
-  constructor(props) {
-    super(props)
-    if (typeof props.withHeader !== 'undefined') {
-      this.withHeader = props.withHeader
-    }
-    this.withTabBar = !!props?.withTabBar
-  }
-
-  render () {
-    return (
+const Root: React.FC = ({
+  children,
+  switchSection,
+  withHeader = true,
+  withTabBar = false,
+}) => {
+  const baseContext = useContext(RootContext)
+  return (
+    <RootContext.Provider value={baseContext}>
       <View className={`jz-theme-${jz.store.themeClassName}`}>
         <View className='page-root-component'>
-          { this.withHeader
-            && (<RootHeader
-                  title={jz.store.currentPageName}
-                />)
-          }
+          { withHeader && <RootHeader /> }
           <View className='page-root__main-content'>
-            {this.props.children}
+            {children}
           </View>
-          { this.withTabBar && <RootTabBar /> }
+          { withTabBar && <RootTabBar switchSection={switchSection}/> }
         </View>
       </View>
-    )
-  }
+    </RootContext.Provider>
+  )
 }
 
 export default Root

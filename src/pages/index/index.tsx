@@ -35,21 +35,21 @@ export default function Index() {
   }, [])
 
   return (
-    <Root
-      withTabBar
-    >
-      <View className='jz-pages__index'>
-        <Header header={header}></Header>
-        {/* <Budget></Budget> */}
-        <Button
-          title='记一笔'
-          onClick={() => {
-            Taro.navigateTo({ url: '/pages/statement/form' })
-          }}
-        />
-        <StatementList statements={statements}></StatementList>
-      </View>
-    </Root>
+    // <Root
+    //   withTabBar
+    // >
+    <View className='jz-pages__index'>
+      <Header header={header}></Header>
+      {/* <Budget></Budget> */}
+      <Button
+        title='记一笔'
+        onClick={() => {
+          Taro.navigateTo({ url: '/pages/statement/form' })
+        }}
+      />
+      <StatementList statements={statements}></StatementList>
+    </View>
+    // </Root>
   )
 }
 
