@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from '@tarojs/components'
-import Root from '@/components/common/Root'
+import BasePage from '@/components/common/BasePage'
 import ExpendForm from '@/components/statementForm/ExpendForm'
 import IncomeForm from '@/components/statementForm/IncomeForm'
 
@@ -77,7 +77,7 @@ export default class Form extends React.Component {
     }
 
     return (
-      <Root
+      <BasePage
         headerName='记一笔'
       >
         <TabBar
@@ -88,7 +88,7 @@ export default class Form extends React.Component {
         <View>
           {formComponent}
         </View>
-      </Root>
+      </BasePage>
     )
   }
 }

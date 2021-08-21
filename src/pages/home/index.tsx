@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
-import Root from '@/components/common/Root'
-import { RootContext } from '@/src/context/RootContext'
+import BasePage from '@/components/common/BasePage'
 import Index from '../index'
 import Statistic from '../statistic'
 
@@ -31,7 +30,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState(tabs[0])
 
   return (<>
-    <Root
+    <BasePage
       withTabBar
       tabs={tabs}
       headerName={activeTab.name}
@@ -40,6 +39,6 @@ export default function Home() {
     >
       { activeTab.page === 'index' && <Index /> }
       { activeTab.page === 'statistic' && <Statistic /> }
-    </Root>
+    </BasePage>
   </>)
 }

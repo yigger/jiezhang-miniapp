@@ -3,7 +3,6 @@ import Taro from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import jz from '@/jz'
 import Statements from '@/components/Statements'
-import Root from '@/components/common/Root'
 import { Button } from '@/src/common/components'
 
 export default function Index() {

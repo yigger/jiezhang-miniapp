@@ -41,7 +41,7 @@ const RootTabBar: React.FC = ({
   )
 }
 
-const Root: React.FC = ({
+const BasePage: React.FC = ({
   children,
   switchTab,
   headerName,
@@ -75,4 +75,4 @@ const Root: React.FC = ({
   )
 }
 
-export default Root
+export default BasePage
