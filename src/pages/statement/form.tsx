@@ -77,7 +77,9 @@ export default class Form extends React.Component {
     }
 
     return (
-      <Root>
+      <Root
+        headerName='记一笔'
+      >
         <TabBar
           tabs={this.state.tabs}
           current={this.state.currentTab}

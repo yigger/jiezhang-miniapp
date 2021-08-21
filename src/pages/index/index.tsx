@@ -44,7 +44,7 @@ export default function Index() {
       <Button
         title='记一笔'
         onClick={() => {
-          Taro.navigateTo({ url: '/pages/statement/form' })
+          jz.router.navigateTo({ url: '/pages/statement/form' })
         }}
       />
       <StatementList statements={statements}></StatementList>

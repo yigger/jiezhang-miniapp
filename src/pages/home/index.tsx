@@ -4,16 +4,42 @@ import { RootContext } from '@/src/context/RootContext'
 import Index from '../index'
 import Statistic from '../statistic'
 
+const tabs = [
+  {
+    page: 'index',
+    name: '首页',
+    icon: 'jcon-home-fill1'
+  },
+  {
+    page: 'statistic',
+    name: '统计',
+    icon: 'jcon-piechart-circle-fil'
+  },
+  {
+    page: 'asset',
+    name: '资产',
+    icon: 'jcon-accountbook-fill'
+  },
+  {
+    page: 'profile',
+    name: '我的',
+    icon: 'jcon-account-fill'
+  }
+]
+
 export default function Home() {
-  const [activeSection, setActiveSection] = useState('index')
-  const rootContext = useContext(RootContext)
+  const [activeTab, setActiveTab] = useState(tabs[0])
+
   return (<>
     <Root
       withTabBar
-      // switchSection={({ page }) => setActiveSection(page)}
+      tabs={tabs}
+      headerName={activeTab.name}
+      activeTab={activeTab}
+      switchTab={({ page }) => setActiveTab(page)}
     >
-      { rootContext.currentTab === 'index' && <Index /> }
-      { rootContext.currentTab === 'statistic' && <Statistic /> }
+      { activeTab.page === 'index' && <Index /> }
+      { activeTab.page === 'statistic' && <Statistic /> }
     </Root>
   </>)
 }

@@ -1,6 +1,8 @@
 import { Api } from './api'
 import { observable } from 'mobx'
 import Store from './stores'
+import Router from './router'
+
 class Jz {
 
   private _appid: string
@@ -8,6 +10,8 @@ class Jz {
   private _apiUrl: string
   private _api: Api
   private _store: Store
+  // 路由，全站的跳转都必须经过此路由
+  private _router: Router
 
   @observable accessToken: string
 
@@ -21,6 +25,7 @@ class Jz {
     this._apiUrl = apiUrl
     this._api = new Api(this.apiUrl, this.appId)
     this._store = new Store()
+    this._router = new Router()
   }
 
   async initialize () {
@@ -37,6 +42,10 @@ class Jz {
       // 换取 accessToken 失败，提示用户
 
     }
+  }
+
+  get router(): Router {
+    return this._router
   }
 
   get baseUrl(): string {

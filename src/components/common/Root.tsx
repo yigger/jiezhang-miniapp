@@ -3,59 +3,33 @@ import jz from '@/jz'
 import { View } from '@tarojs/components'
 import { RootContext } from '@/src/context/RootContext'
 
-const RootHeader: React.FC = () => {
-  const context = useContext(RootContext)
+const RootHeader: React.FC = ({
+  headerName
+}) => {
   return (
     <View className='page-root__header-component'>
+      { jz.router.prevExist()
+         && <View onClick={() => jz.router.navigateBack()} className='iconfont fs-24 mt-2 mb-2 jcon-leftarrow'></View> }
       <View className='header-title fs-16'>
-        { context.pageTitle }
+        {headerName}
       </View>
     </View>
   )
 }
 
 const RootTabBar: React.FC = ({
-  switchSection
+  switchTab,
+  activeTab,
+  tabs
 }) => {
-  const headers = [
-    {
-      page: 'index',
-      name: '首页',
-      icon: 'jcon-home-fill1',
-      active: true,
-      redirectTo: '/pages/index/index'
-    },
-    {
-      page: 'statistic',
-      name: '统计',
-      icon: 'jcon-piechart-circle-fil',
-      active: false,
-      redirectTo: '/pages/statistic/index'
-    },
-    {
-      page: 'asset',
-      name: '资产',
-      icon: 'jcon-accountbook-fill',
-      active: false,
-      redirectTo: '/pages/statistic/index'
-    },
-    {
-      page: 'profile',
-      name: '我的',
-      icon: 'jcon-account-fill',
-      active: false,
-      redirectTo: '/pages/statistic/index'
-    }
-  ]
-
   return (
     <View className='page-root__tab-bar-component'>
       {
-        headers.map((header) => {
+        tabs.map((header) => {
           return (
             <View
-              className={`d-flex flex-1 flex-column flex-center ${header.active ? 'active' : ''}`}
-              onClick={() => switchSection(header)}
+              className={`d-flex flex-1 flex-column flex-center ${header.page === activeTab.page ? 'active' : ''}`}
+              onClick={() => switchTab(header)}
             >
               <View className={`iconfont fs-24 mt-2 mb-2 ${header.icon}`}></View>
               <View>{header.name}</View>
@@ -69,7 +43,10 @@ const RootTabBar: React.FC = ({
 
 const Root: React.FC = ({
   children,
-  switchSection,
+  switchTab,
+  headerName,
+  tabs,
+  activeTab,
   withHeader = true,
   withTabBar = false,
 }) => {
@@ -78,11 +55,20 @@ const Root: React.FC = ({
     <RootContext.Provider value={baseContext}>
       <View className={`jz-theme-${jz.store.themeClassName}`}>
         <View className='page-root-component'>
-          { withHeader && <RootHeader /> }
+          {/* 顶部 */}
+          { withHeader && <RootHeader headerName={headerName} /> }
+          {/* 主体内容区域 */}
           <View className='page-root__main-content'>
             {children}
           </View>
-          { withTabBar && <RootTabBar switchSection={switchSection}/> }
+          {/* TabBar 部分 */}
+          { withTabBar &&
+            <RootTabBar
+              tabs={tabs}
+              activeTab={activeTab}
+              switchTab={switchTab}
+              />
+          }
         </View>
       </View>
     </RootContext.Provider>
