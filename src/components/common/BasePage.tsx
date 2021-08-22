@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import jz from '@/jz'
 import { View } from '@tarojs/components'
 import { RootContext } from '@/src/context/RootContext'
+import { observer } from 'mobx-react';
 
 const RootHeader: React.FC = ({
   headerName
@@ -46,7 +47,8 @@ const RootTabBar: React.FC = ({
   )
 }
 
-const BasePage: React.FC = ({
+const BasePage: React.FC = observer(
+  ({
   children,
   switchTab,
   headerName,
@@ -61,7 +63,7 @@ const BasePage: React.FC = ({
   }
   return (
     <RootContext.Provider value={baseContext}>
-      <View className={`jz-theme-${jz.store.themeClassName}`}>
+      <View className={`jz-theme-${jz.store.currentTheme.value}`}>
         <View className='page-root-component' style={pageStyle}>
           {/* 顶部 */}
           { withHeader && <RootHeader headerName={headerName} /> }
@@ -81,6 +83,6 @@ const BasePage: React.FC = ({
       </View>
     </RootContext.Provider>
   )
-}
+})
 
 export default BasePage

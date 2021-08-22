@@ -6,7 +6,7 @@ import './assets/styl/index.styl'
 
 class App extends Component {
   async onLaunch () {
-    console.log('onLaunch')
+    // console.log('onLaunch')
     jz.bootstrap({
       appid: 'appid',
       baseUrl: 'http://jz.com',

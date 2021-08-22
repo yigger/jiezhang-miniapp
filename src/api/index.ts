@@ -1,6 +1,7 @@
 import Request from './request'
 import Statement from './logic/statement'
 import Main from './logic/main'
+import User from './logic/user'
 
 export class Api extends Request {
 
@@ -21,6 +22,16 @@ export class Api extends Request {
     } else {
       this._main = new Main(this.endpoint, this.appid)
       return this._main
+    }
+  }
+
+  private _users: User = null
+  get users(): User {
+    if (!!this._users) {
+      return this._users
+    } else {
+      this._users = new User(this.endpoint, this.appid)
+      return this._users
     }
   }
 }

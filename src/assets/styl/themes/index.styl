@@ -11,9 +11,19 @@ $default = {
 
 $pure = {
   primaryColor: #cccccc
-  primaryBgColor: #ffffff
-  primaryBgTextColor: #ffffff
+  primaryBgColor: #cacaca
+  primaryBgTextColor: #212121
   textColor: #212121
+  secondaryText: #757575
+  borderColor: #f4f4f4
+  backgroundColor: #f4f4f4
+}
+
+$pink = {
+  primaryColor: #ffbeb9
+  primaryBgColor: #f9e0de
+  primaryBgTextColor: #636363
+  textColor: #636363
   secondaryText: #757575
   borderColor: #f4f4f4
   backgroundColor: #f4f4f4
@@ -21,7 +31,8 @@ $pure = {
 
 $themes = {
   default: $default,
-  pure: $pure
+  pure: $pure,
+  pink: $pink
 }
 
 for themeKey, _ in $themes {

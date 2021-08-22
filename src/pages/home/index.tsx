@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import BasePage from '@/components/common/BasePage'
 import Index from '../index'
 import Statistic from '../statistic'
+import Profile from '../profile'
 
 const tabs = [
   {
@@ -27,7 +28,7 @@ const tabs = [
 ]
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState(tabs[0])
+  const [activeTab, setActiveTab] = useState(tabs[3])
   return (<>
     <BasePage
       withTabBar
@@ -38,6 +39,8 @@ export default function Home() {
     >
       { activeTab.page === 'index' && <Index /> }
       { activeTab.page === 'statistic' && <Statistic /> }
+      { activeTab.page === 'asset' && <Statistic /> }
+      { activeTab.page === 'profile' && <Profile /> }
     </BasePage>
   </>)
 }
