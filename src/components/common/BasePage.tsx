@@ -6,8 +6,13 @@ import { RootContext } from '@/src/context/RootContext'
 const RootHeader: React.FC = ({
   headerName
 }) => {
+  const headerStyle = {
+    paddingTop: jz.systemInfo.statusBarHeight,
+    height: jz.systemInfo.statusBarHeight + 46
+  }
+
   return (
-    <View className='page-root__header-component'>
+    <View className='page-root__header-component' style={headerStyle}>
       { jz.router.prevExist()
          && <View onClick={() => jz.router.navigateBack()} className='iconfont fs-24 mt-2 mb-2 jcon-leftarrow'></View> }
       <View className='header-title fs-16'>
@@ -51,10 +56,13 @@ const BasePage: React.FC = ({
   withTabBar = false,
 }) => {
   const baseContext = useContext(RootContext)
+  const pageStyle = {
+    paddingTop: jz.systemInfo.statusBarHeight + 46
+  }
   return (
     <RootContext.Provider value={baseContext}>
       <View className={`jz-theme-${jz.store.themeClassName}`}>
-        <View className='page-root-component'>
+        <View className='page-root-component' style={pageStyle}>
           {/* 顶部 */}
           { withHeader && <RootHeader headerName={headerName} /> }
           {/* 主体内容区域 */}

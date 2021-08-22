@@ -28,14 +28,13 @@ const tabs = [
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState(tabs[0])
-
   return (<>
     <BasePage
       withTabBar
       tabs={tabs}
       headerName={activeTab.name}
       activeTab={activeTab}
-      switchTab={({ page }) => setActiveTab(page)}
+      switchTab={(tab) => setActiveTab(tab)}
     >
       { activeTab.page === 'index' && <Index /> }
       { activeTab.page === 'statistic' && <Statistic /> }

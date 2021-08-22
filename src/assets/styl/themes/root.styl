@@ -1,5 +1,5 @@
 $header-height ?= 68PX
-$bottom-height ?= 60PX
+$bottom-height ?= 80PX
 
 .page-root-component {
   position relative
@@ -11,13 +11,19 @@ $bottom-height ?= 60PX
     display flex
     align-items center
     width 100%
-    height $header-height
+
+    position fixed
+    top 0
+    left 0
+    bottom 0
+    right 0
+    z-index 999
 
     padding-left 1em
     padding-right 100PX
     background $primaryBgColor
     color $primaryBgTextColor
-    transition $header-height 200ms
+    // transition $header-height 200ms
 
     .header-title {
       color: $primaryBgTextColor
@@ -35,6 +41,7 @@ $bottom-height ?= 60PX
     display flex
     align-items center
     height $bottom-height
+    padding-bottom 12PX
     width 100%
     border-top: 1PX solid $borderColor
     > view {

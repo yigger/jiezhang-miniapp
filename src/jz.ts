@@ -1,3 +1,5 @@
+import Taro from "@tarojs/taro"
+
 import { Api } from './api'
 import { observable } from 'mobx'
 import Store from './stores'
@@ -12,6 +14,8 @@ class Jz {
   private _store: Store
   // 路由，全站的跳转都必须经过此路由
   private _router: Router
+  
+  systemInfo: any
 
   @observable accessToken: string
 
@@ -26,6 +30,7 @@ class Jz {
     this._api = new Api(this.apiUrl, this.appId)
     this._store = new Store()
     this._router = new Router()
+    this.systemInfo = Taro.getSystemInfoSync()
   }
 
   async initialize () {
@@ -37,7 +42,7 @@ class Jz {
     const token = await this.api.authAccessToken()
     if (token) {
       this.accessToken = token
-      console.log(this.accessToken)
+      // console.log(this.accessToken)
     } else {
       // 换取 accessToken 失败，提示用户
 

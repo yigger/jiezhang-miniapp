@@ -5,7 +5,6 @@ export default class Router {
 
   constructor () {
     this._routes = []
-    // this._names =
   }
 
   navigateTo ({ url, name = '' }) {
@@ -28,7 +27,6 @@ export default class Router {
   }
 
   prevExist () {
-    console.log(this._routes.length)
     return this._routes.length > 0
   }
 
