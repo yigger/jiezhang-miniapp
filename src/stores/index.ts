@@ -12,12 +12,16 @@ export default class Store {
     {
       name: '樱花粉',
       value: 'pink'
+    },
+    {
+      name: '黑夜模式',
+      value: 'black'
     }
   ]
 
   // 初始化的默认主题
   // value: default, pink, pure
-  @observable currentTheme = this.themes[2]
+  @observable currentTheme = this.themes[3]
 
   setTheme(theme) {
     this.currentTheme = theme

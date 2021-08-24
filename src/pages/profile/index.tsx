@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { Component, useContext } from 'react'
 import { View } from '@tarojs/components'
 import jz from '@/jz'
 import { useEffect } from 'react'
@@ -7,6 +7,7 @@ import { differenceInDays } from 'date-fns'
 import { Image } from '@tarojs/components'
 import { AtList, AtListItem } from "taro-ui"
 import { Picker } from '@tarojs/components'
+import { BasePageContext } from '@/src/context/BasePageContext'
 
 import "taro-ui/dist/style/components/list.scss";
 import "taro-ui/dist/style/components/icon.scss";
@@ -14,7 +15,7 @@ import "taro-ui/dist/style/components/icon.scss";
 function UserInfo ({
   userInfo
 }) {
-  console.log(userInfo)
+  // console.log(userInfo)
   return (
     <View className='user-info d-flex flex-center p-4'>
       <View className='jz-image-normal radius'>
@@ -24,7 +25,7 @@ function UserInfo ({
       <View className='username-and-desc flex-1 ml-2'>
         <View>{userInfo.name}</View>
         <View className='fs-14 col-text-mute'>
-          今天是你在洁账的第 {differenceInDays(new Date(), new Date(userInfo.created_at))} 天，累计记账 {userInfo.statement_count} 笔
+          今天是你记账的第 {differenceInDays(new Date(), new Date(userInfo.created_at))} 天，累计记账共 {userInfo.statement_count} 笔
         </View>
       </View>
     </View>
@@ -60,6 +61,8 @@ export default function Profile () {
   const [userInfo, setUserInfo] = useState({})
   const [version, setVersion] = useState('')
   const [themeName, setThemeName] = useState(jz.store.currentTheme.name)
+  const themeContext = useContext(BasePageContext)
+  // console.log(themeContext)
 
   useEffect(() => {
     jz.api.users.getUserInfo().then((res) => {
@@ -73,6 +76,8 @@ export default function Profile () {
     const theme = jz.store.themes[detail.value]
     setThemeName(theme.name)
     jz.store.setTheme(theme)
+    console.log(theme.value)
+    themeContext.actions.setTheme(theme.value)
   }
 
   return (
@@ -83,6 +88,15 @@ export default function Profile () {
         <View style='height: 20PX; background: #F4F4F4'></View>
 
         <AtList>
+          
+          <AtListItem title='我的账本' extraText='默认账本' arrow='right' />
+          <AtListItem title='家人共享' extraText='正与 1 人共享' arrow='right' />
+          <AtListItem title='预算管理' arrow='right' />
+          {/* <AtListItem title='账单图库' arrow='right' /> */}
+          <AtListItem title='设置资产分类' arrow='right' />
+          <AtListItem title='支出分类管理' arrow='right' />
+          <AtListItem title='收入分类管理' arrow='right' />
+          <AtListItem title='意见反馈' arrow='right' />
           <Picker
             mode='selector'
             range={jz.store.themes.map((theme) => theme.name)}
@@ -90,10 +104,7 @@ export default function Profile () {
           >
             <AtListItem title='主题设置' extraText={themeName} arrow='right' />
           </Picker>
-          <AtListItem title='账单图库' arrow='right' />
-          <AtListItem title='设置资产分类' arrow='right' />
-          <AtListItem title='支出分类管理' arrow='right' />
-          <AtListItem title='收入分类管理' arrow='right' />
+          <AtListItem title='关于洁账' extraText={version} arrow='right' />
         </AtList>
       </View>
 
