@@ -1,13 +1,26 @@
-.jz-image-normal {
+.jz-image {
   display: inline-block
 
-  width: 100px;
-  height: 100px;
+  &-normal {
+    width: 100px;
+    height: 100px;
 
-  image {
-    width: 100%;
-    height: 100%;
+    image {
+      width: 100%;
+      height: 100%;
+    }
   }
+
+  &-icon {
+    width: 60px;
+    height: 60px;
+
+    image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
 
   &.radius {
     border-radius: 30PX

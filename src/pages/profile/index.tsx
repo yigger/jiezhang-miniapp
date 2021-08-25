@@ -93,9 +93,8 @@ export default function Profile () {
           <AtListItem title='家人共享' extraText='正与 1 人共享' arrow='right' />
           <AtListItem title='预算管理' arrow='right' />
           {/* <AtListItem title='账单图库' arrow='right' /> */}
-          <AtListItem title='设置资产分类' arrow='right' />
-          <AtListItem title='支出分类管理' arrow='right' />
-          <AtListItem title='收入分类管理' arrow='right' />
+          <AtListItem title='资产分类管理' arrow='right' onClick={() => jz.router.navigateTo({url: '/pages/setting/asset/index'})}/>
+          <AtListItem title='账单分类管理' arrow='right' onClick={() => jz.router.navigateTo({url: '/pages/setting/category/index'})}/>
           <AtListItem title='意见反馈' arrow='right' />
           <Picker
             mode='selector'

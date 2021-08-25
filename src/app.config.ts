@@ -1,7 +1,13 @@
 export default {
   pages: [
+    // 首页
     'pages/home/index',
-    'pages/statement/form'
+    // 创建账单的表单
+    'pages/statement/form',
+    // 分类管理
+    'pages/setting/category/index',
+    // 资产管理
+    'pages/setting/asset/index'
   ],
   window: {
     navigationBarTitleText: 'WeChat',

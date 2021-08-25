@@ -3,23 +3,7 @@ import { View } from '@tarojs/components'
 import BasePage from '@/components/common/BasePage'
 import ExpendForm from '@/components/statementForm/ExpendForm'
 import IncomeForm from '@/components/statementForm/IncomeForm'
-
-function TabBar({ tabs, current, onChange }) {
-  return (
-    <View className='jz-common-components__tab d-flex'>
-      {tabs.map((item) => {
-        return (
-          <View
-            className={`item d-flex flex-center-center p-2 flex-1 ${current === item.id ? 'active' : ''}`}
-            onClick={() => onChange(item.id)}
-          >
-            {item.title}
-          </View>
-        )
-      })}
-    </View>
-  )
-}
+import { Tabs } from '@/src/common/components'
 
 function TransferForm() {
   return (<View>转账</View>)
@@ -80,7 +64,7 @@ export default class Form extends React.Component {
       <BasePage
         headerName='记一笔'
       >
-        <TabBar
+        <Tabs
           tabs={this.state.tabs}
           current={this.state.currentTab}
           onChange={this.tabChange.bind(this)}
