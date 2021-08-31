@@ -7,6 +7,10 @@ export default class Router {
     this._routes = []
   }
 
+  getParams() {
+    return Taro.getCurrentInstance().router.params
+  }
+
   navigateTo ({ url, name = '' }) {
     this._routes.push(url)
     Taro.navigateTo({ url })

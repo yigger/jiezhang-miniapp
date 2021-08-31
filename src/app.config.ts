@@ -6,6 +6,7 @@ export default {
     'pages/statement/form',
     // 分类管理
     'pages/setting/category/index',
+    'pages/setting/category/edit',
     // 资产管理
     'pages/setting/asset/index'
   ],

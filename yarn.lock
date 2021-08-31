@@ -13999,7 +13999,7 @@ taro-css-to-react-native@^2.0.4:
     css-mediaquery "^0.1.2"
     postcss-value-parser "^3.3.0"
 
-taro-ui@^3.0.0-alpha.3:
+taro-ui@^3.0.0-alpha.10:
   version "3.0.0-alpha.10"
   resolved "https://registry.npm.taobao.org/taro-ui/download/taro-ui-3.0.0-alpha.10.tgz#c6fb95ddb70d31c5b1e242cdc25fb11d630339a2"
   integrity sha1-xvuV3bcNMcWx4kLNwl+xHWMDOaI=
