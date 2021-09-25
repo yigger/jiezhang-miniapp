@@ -11,4 +11,20 @@ export default class Category extends Request {
   getCategoryDetail(id) {
     return this.get(`/categories/${id}`)
   }
+
+  deleteCategory(id) {
+    return this.delete(`/categories/${id}`)
+  }
+
+  getCategoryIcon() {
+    return this.get('/icons/categories')
+  }
+
+  updateCategory(id, data) {
+    return this.put(`/categories/${id}`, data)
+  }
+
+  create(data) {
+    return this.post('/categories', data)
+  }
 }
