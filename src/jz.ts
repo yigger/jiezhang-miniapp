@@ -49,6 +49,14 @@ class Jz {
     }
   }
 
+  toastError(content, duration = 1500, icon = 'none') {
+    Taro.showToast({
+      title: content,
+      icon: icon,
+      duration: duration
+    })
+  }
+
   get router(): Router {
     return this._router
   }

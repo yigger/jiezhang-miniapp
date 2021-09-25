@@ -89,6 +89,7 @@ export default function EditCategory () {
       jz.router.navigateBack()
     } else {
       console.log(st)
+      jz.toastError(st.data.msg)
     }
   }
 

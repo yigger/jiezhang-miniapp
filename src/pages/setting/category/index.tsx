@@ -92,8 +92,6 @@ export default function CategorySetting () {
     if (e.text === '编辑') {
       jz.router.navigateTo({ url: `/pages/setting/category/edit?id=${categoryItem.id}&type=${categoryItem.type}` })
     } else if (e.text === '删除') {
-      const deleteIndex = listData.findIndex((item) => item.id === categoryItem.id)
-      // 真删
       const res = await jz.api.categories.deleteCategory(categoryItem.id)
       if (res.data && res.data.status === 200) {
         const deleteIndex = listData.findIndex((item) => item.id === categoryItem.id)
