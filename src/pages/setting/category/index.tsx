@@ -1,6 +1,7 @@
-import { Component, useEffect, useState } from 'react'
+import { Component, useEffect, useState, useContext } from 'react'
 import { AtSwipeAction } from "taro-ui"
 import { View, Image } from '@tarojs/components'
+import { useDidShow } from '@tarojs/taro'
 import BasePage from '@/components/common/BasePage'
 import { Tabs, Button } from '@/src/common/components'
 import jz from '@/jz'
@@ -18,7 +19,7 @@ function List ({
 }) {
   return (
     <View>
-      {data.map((item, index) => (
+      {data.map((item) => (
           <AtSwipeAction
             key={item.id}
             areaWidth={jz.systemInfo.screenWidth}
@@ -71,33 +72,37 @@ export default function CategorySetting () {
     parentId = params.id
   }
 
-  useEffect(() => {
-    console.log(type)
+  // 获取列表
+  const getCategories = () => {
     jz.api.categories.getSettingList({ type: type, parent_id: parentId }).then((res) => {
       setListData(res.data.categories)
     })
+  }
+
+  useEffect(() => {
+    getCategories()
   }, [type, parentId])
   
+  // 因为 useEffect 无法在每次页面渲染的时候重新请求 API，所以只能是用 useDidShow 的方式来达到 “创建分类后重新刷新列表”
+  useDidShow(() => {
+    getCategories()
+  })
+
   const handleClick = async (e, categoryItem) => {
     if (e.text === '编辑') {
       jz.router.navigateTo({ url: `/pages/setting/category/edit?id=${categoryItem.id}&type=${categoryItem.type}` })
     } else if (e.text === '删除') {
       const deleteIndex = listData.findIndex((item) => item.id === categoryItem.id)
-      console.log(deleteIndex)
-      if (deleteIndex !== -1) {
-        listData.splice(deleteIndex, 1)
-        setListData(listData)
-      }
-
       // 真删
-      // const res = await jz.api.categories.deleteCategory(categoryItem.id)
-      // if (res.data && res.data.status === 200) {
-      //   const deleteIndex = listData.findIndex((item) => item.id === categoryItem.id)
-      //   if (deleteIndex !== -1) {
-      //     listData.splice(deleteIndex, 1)
-      //     // setListData()
-      //   }
-      // }
+      const res = await jz.api.categories.deleteCategory(categoryItem.id)
+      if (res.data && res.data.status === 200) {
+        const deleteIndex = listData.findIndex((item) => item.id === categoryItem.id)
+        if (deleteIndex !== -1) {
+          const data = [...listData]
+          data.splice(deleteIndex, 1)
+          setListData(data)
+        }
+      }
     }
   }
 

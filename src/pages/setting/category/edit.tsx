@@ -1,13 +1,11 @@
-import { Component, useEffect, useState } from 'react'
+import { Component, useEffect, useState, useContext } from 'react'
 import { View, Image, Picker } from '@tarojs/components'
 import BasePage from '@/components/common/BasePage'
 import jz from '@/jz'
-import { AtInput, AtList, AtListItem, AtToast } from 'taro-ui'
+import { AtInput } from 'taro-ui'
 import { Button } from '@/src/common/components'
 
 import "taro-ui/dist/style/components/input.scss"
-import "taro-ui/dist/style/components/list.scss";
-import "taro-ui/dist/style/components/toast.scss";
 
 function IconList({
   showMask = false,
