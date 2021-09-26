@@ -6,9 +6,10 @@ export default {
     'pages/statement/form',
     // 分类管理
     'pages/setting/category/index',
-    'pages/setting/category/edit',
+    'pages/setting/category/form',
     // 资产管理
-    'pages/setting/asset/index'
+    'pages/setting/asset/index',
+    'pages/setting/asset/form'
   ],
   window: {
     navigationBarTitleText: 'WeChat',

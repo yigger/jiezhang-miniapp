@@ -90,7 +90,7 @@ export default function CategorySetting () {
 
   const handleClick = async (e, categoryItem) => {
     if (e.text === '编辑') {
-      jz.router.navigateTo({ url: `/pages/setting/category/edit?id=${categoryItem.id}&type=${categoryItem.type}` })
+      jz.router.navigateTo({ url: `/pages/setting/category/form?id=${categoryItem.id}&type=${categoryItem.type}` })
     } else if (e.text === '删除') {
       const res = await jz.api.categories.deleteCategory(categoryItem.id)
       if (res.data && res.data.status === 200) {
@@ -131,9 +131,9 @@ export default function CategorySetting () {
       </View>
 
       <Button 
-        title={parentId > 0 ? '创建子分类' : '创建父分类'}
+        title={parentId > 0 ? '新增子分类' : '新增父分类'}
         onClick={() => {
-          jz.router.navigateTo({ url: `/pages/setting/category/edit?type=${type}&parentId=${parentId}` })
+          jz.router.navigateTo({ url: `/pages/setting/category/form?type=${type}&parentId=${parentId}` })
         }}
       />
     </BasePage>

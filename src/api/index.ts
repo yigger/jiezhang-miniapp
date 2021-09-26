@@ -3,6 +3,7 @@ import Statement from './logic/statement'
 import Main from './logic/main'
 import User from './logic/user'
 import Category from './logic/category'
+import Asset from './logic/asset'
 
 export class Api extends Request {
 
@@ -43,6 +44,16 @@ export class Api extends Request {
     } else {
       this._categories = new Category(this.endpoint, this.appid)
       return this._categories
+    }
+  }
+
+  private _assets: Asset = null
+  get assets(): Asset {
+    if (!!this._assets) {
+      return this._assets
+    } else {
+      this._assets = new Asset(this.endpoint, this.appid)
+      return this._assets
     }
   }
 }

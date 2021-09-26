@@ -1,5 +1,5 @@
-import { Component, useEffect, useState, useContext } from 'react'
-import { View, Image, Picker } from '@tarojs/components'
+import { useEffect, useState } from 'react'
+import { View, Image } from '@tarojs/components'
 import BasePage from '@/components/common/BasePage'
 import jz from '@/jz'
 import { AtInput } from 'taro-ui'
