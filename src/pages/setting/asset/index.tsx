@@ -16,43 +16,43 @@ function List ({
     <View>
       {data.map((item) => (
         <View>
-          <View className='d-flex flex-between p-2 col-text-mute' style="background: #fffedf;">
-            <View>{item.name}</View>
-            <View>+新增子资产</View>
-          </View>
-          {item.childs.map((child) => (
-            <AtSwipeAction
-              key={child.id}
-              areaWidth={jz.systemInfo.screenWidth}
-              maxDistance={150}
-              onClick={(text) => handleClick(text, child) }
-              options={[
-                {
-                  text: '编辑',
-                  style: {
-                    backgroundColor: '#6190E8'
-                  }
-                },
-                {
-                  text: '删除',
-                  style: {
-                    backgroundColor: '#FF4949'
-                  }
+          <AtSwipeAction
+            key={item.id}
+            areaWidth={jz.systemInfo.screenWidth}
+            maxDistance={150}
+            onClick={(text) => handleClick(text, item) }
+            options={[
+              {
+                text: '编辑',
+                style: {
+                  backgroundColor: '#6190E8'
                 }
-            ]}>
-              <View className='d-flex flex-between flex-center jz-border-bottom-1 p-2 w-100'>
-                <View className='d-flex flex-center'>
-                  <View className='jz-image-icon'>
-                    <Image src={child.icon_url}></Image>
-                  </View>
-                  <View className='pl-4'>{child.name}</View>
+              },
+              {
+                text: '删除',
+                style: {
+                  backgroundColor: '#FF4949'
+                }
+              }
+          ]}>
+            <View className='d-flex flex-between flex-center jz-border-bottom-1 p-2 w-100' onClick={() => {
+              if (item.parent_id === 0) {
+                jz.router.navigateTo({url: `/pages/setting/asset/index?parentId=${item.id}`})
+              }
+            }}>
+              <View className='d-flex flex-center'>
+                <View className='jz-image-icon'>
+                  <Image src={item.icon_url}></Image>
                 </View>
-                <View className={`col-${child.type}`}>
-                  {child.amount}
-                </View>
+                <View className='pl-4'>{item.name}</View>
               </View>
-            </AtSwipeAction>
-          ))}
+              {
+                <View className={`col-${item.type}`}>
+                  {item.parent_id > 0 && item.amount }
+                </View>
+              }
+            </View>
+          </AtSwipeAction>
         </View>
       ))}
     </View>
@@ -60,11 +60,13 @@ function List ({
 }
 
 export default function AssetSetting () {
+  const params = jz.router.getParams()
   const [listData, setListData] = useState([])
+  const parentId = Number.parseInt(params.parentId)
 
   // 获取列表
   const getAssets = () => {
-    jz.api.assets.getSettingList().then((res) => {
+    jz.api.assets.getSettingList({ parentId: parentId }).then((res) => {
       setListData(res.data)
     })
   }
@@ -77,8 +79,8 @@ export default function AssetSetting () {
     if (e.text === '编辑') {
       jz.router.navigateTo({ url: `/pages/setting/asset/form?id=${assetItem.id}` })
     } else if (e.text === '删除') {
-      const res = await jz.api.categories.deleteCategory(assetItem.id)
-      if (res.data && res.data.status === 200) {
+      const res = await jz.api.assets.deleteAsset(assetItem.id)
+      if (res.isSuccess && res.data && res.data.status === 200) {
         const deleteIndex = listData.findIndex((item) => item.id === assetItem.id)
         if (deleteIndex !== -1) {
           const data = [...listData]
@@ -101,7 +103,7 @@ export default function AssetSetting () {
       <Button 
         title='新增资产'
         onClick={() => {
-          jz.router.navigateTo({ url: `/pages/setting/asset/form` })
+          jz.router.navigateTo({ url: `/pages/setting/asset/form?parentId=${parentId}` })
         }}
       />
     </BasePage>

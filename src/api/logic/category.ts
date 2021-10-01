@@ -13,7 +13,7 @@ export default class Category extends Request {
   }
 
   deleteCategory(id) {
-    return this.delete(`/categories/${id}`)
+    return this.delete(`/categories/${id}`, {})
   }
 
   getCategoryIcon() {

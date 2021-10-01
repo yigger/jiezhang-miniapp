@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { View, Image } from '@tarojs/components'
 import BasePage from '@/components/common/BasePage'
 import jz from '@/jz'
-import { AtInput } from 'taro-ui'
+import { Picker, Input } from '@tarojs/components'
 import { Button } from '@/src/common/components'
 
 import "taro-ui/dist/style/components/input.scss"
@@ -50,85 +50,114 @@ export default function EditAsset () {
     id: 0,
     name: '',
     amount: 0,
-    parent_name: '',
+    type: 'deposit',
+    parent_id: Number.parseInt(params.parentId) || 0,
     icon_id: 0
   })
   const [showIconList, setShowIconList] = useState(false)
-  
+  const [parentAsset, setParentAsset] = useState(null)
+  const assetTypes = ['存款账户', '负债账户']
+
   useEffect(() => {
+    // 编辑
     if (params.id) {
       jz.api.assets.getAssetDetail(params.id).then((res) => {
         setAsset(res.data)
       })
     }
 
-    // jz.api.categories.getSettingList({ type: params.type }).then((res) => {
-    //   const data = res.data.categories.find((item) => item.id === Number.parseInt(params.parentId))
-    //   if (data) {
-    //     setCategory({...category, parent_name: data.name})
-    //   }
-    // })
+    if (params.parentId > 0) {
+      jz.api.assets.getAssetDetail(params.parentId).then((res) => {
+        setParentAsset(res.data)
+        setAsset({...asset, type: res.data.type})
+      })
+    }
   }, [])
 
   const handleSubmit = async () => {
-    // const data = {
-    //   name: category.name,
-    //   parent_id: category.parent_id,
-    //   icon_id: category.icon_id
-    // }
+    if (asset.parent_id > 0) {
+      setAsset({ ...asset, amount: 0 })
+    }
 
-    // let st
-    // if (category.id) {
-    //   st = await jz.api.categories.updateCategory(category.id, { category: data })
-    // } else {
-    //   st = await jz.api.categories.create({ category: { ...data, type: category.type }})
-    // }
-
-    // if (st.data.status === 200) {
-    //   jz.router.navigateBack()
-    // } else {
-    //   console.log(st)
-    //   jz.toastError(st.data.msg)
-    // }
+    if (asset.id === 0) {
+      const st = await jz.api.assets.create(asset)
+      if (st.data.status === 200) {
+        jz.router.navigateBack()
+      } else {
+        jz.toastError(st.data.msg)
+      }
+    } else {
+      const st = await jz.api.assets.updateAsset(asset.id, asset)
+      if (st.data.status === 200) {
+        jz.router.navigateBack()
+      } else {
+        jz.toastError(st.data.msg)
+      }
+    }
   }
 
-  function handleIconSelect(icon) {
-    setAsset(Object.assign(asset, { icon_url: icon.url, icon_id: icon.id }))
+  const changeAsset = ({ detail }) => {
+    const newType = Number.parseInt(detail.value) === 0 ? 'deposit' : 'debt'
+    setAsset(Object.assign({... asset, type: newType}))
+  }
+
+  const handleIconSelect = (icon) => {
+    const newIcon = { icon_url: icon.url, icon_id: icon.id }
+    setAsset({ ...asset, ...newIcon })
   }
 
   return (
     <BasePage
       headerName={asset.id === 0 ? '新增资产' : '编辑资产'}
     >
+      { parentAsset && <View className='col-text-mute p-4'>在 【{parentAsset.name}】 下创建子分类</View> }
       <View>
-        <AtInput
-          title='资产名称'
-          type='text'
-          placeholder='输入资产名称'
-          value={asset.name}
-          onChange={(value) => {
-            setAsset(Object.assign(asset, {name: value}))
-          }}
-        />
+        <View className='d-flex p-4 flex-between jz-border-bottom-1'>
+            <View>资产名称</View>
+            <Input
+              className="text-align-right"
+              type="text"
+              placeholder='输入资产名称'
+              maxlength={20}
+              value={asset.name}
+              onInput={({ detail }) => setAsset({...asset, name: detail.value}) }
+            ></Input>
+          </View>
 
-        <AtInput
-          title='资产余额'
-          type='digit'
-          placeholder='输入资产余额'
-          value={asset.amount}
-          onChange={(value) => {
-            setAsset(Object.assign(asset, {amount: value}))
-          }}
-        />
+        {asset.parent_id > 0 && <View className='d-flex p-4 flex-between jz-border-bottom-1'>
+          <View>资产余额</View>
+          <Input
+            className="text-align-right"
+            type="digit"
+            placeholder='输入资产余额'
+            maxlength={20}
+            value={asset.amount}
+            onInput={({ detail }) => setAsset({...asset, amount: detail.value}) }
+          ></Input>
+        </View>}
 
-        
+        <Picker mode='selector' range={assetTypes} onChange={changeAsset}>
+          <View className='d-flex p-4 flex-between jz-border-bottom-1'>
+            <View>资产类型</View>
+            <View>{asset.type === 'deposit' ? '存款账户' : '负债账户'}</View>
+          </View>
+        </Picker>
+        <View className='fs-14 p-2 col-text-mute'>
+          <View>说明：系统借助此选项来计算净资产和负债情况</View>
+          <View>- 存款账户：适用如银行卡、支付宝、微信等资产</View>
+          <View>- 负债账户：适用如信用卡、花呗等资产</View>
+        </View>
 
-        <View className='d-flex p-4 flex-center'>
-          <View className='at-input__title'>图标</View>
-          <View className='flex-1' onClick={() => setShowIconList(!showIconList)}>
-            <View className='jz-image-icon'>
-              <Image src={asset.icon_url}></Image>
-            </View>
+        <View className='d-flex p-4 flex-between jz-border-bottom-1'>
+          <View>图标</View>
+          <View className='text-align-right' onClick={() => setShowIconList(!showIconList)}>
+            { asset.icon_id === 0 && <View>请选择图标</View>}
+            { asset.icon_id > 0 && (
+              <View className='jz-image-icon'>
+                <Image src={asset.icon_url}></Image>
+              </View>
+            )}
+            
           </View>
         </View>
 

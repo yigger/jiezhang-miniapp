@@ -94,7 +94,8 @@ export default function EditCategory () {
   }
 
   function handleIconSelect(icon) {
-    setCategory(Object.assign(category, { icon_url: icon.url, icon_id: icon.id }))
+    const newIcon = { icon_url: icon.url, icon_id: icon.id }
+    setCategory({ ...category, ...newIcon })
   }
 
   return (
