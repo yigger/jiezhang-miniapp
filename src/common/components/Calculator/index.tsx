@@ -152,21 +152,21 @@ export function Calculator({
             {/* 左侧结构 */}
             <View className='calculator-keys__left'>
               <View className='d-flex flex-1'>
-                <View className='normal-item__key' onClick={() => handleDigitInput('9')}>9</View>
-                <View className='normal-item__key' onClick={() => handleDigitInput('8')}>8</View>
-                <View className='normal-item__key' onClick={() => handleDigitInput('7')}>7</View>
-              </View>
-
-              <View className='d-flex flex-1'>
-                <View className='normal-item__key' onClick={() => handleDigitInput('6')}>6</View>
-                <View className='normal-item__key' onClick={() => handleDigitInput('5')}>5</View>
-                <View className='normal-item__key' onClick={() => handleDigitInput('4')}>4</View>
-              </View>
-
-              <View className='d-flex flex-1'>
-                <View className='normal-item__key' onClick={() => handleDigitInput('3')}>3</View>
-                <View className='normal-item__key' onClick={() => handleDigitInput('2')}>2</View>
                 <View className='normal-item__key' onClick={() => handleDigitInput('1')}>1</View>
+                <View className='normal-item__key' onClick={() => handleDigitInput('2')}>2</View>
+                <View className='normal-item__key' onClick={() => handleDigitInput('3')}>3</View>
+              </View>
+
+              <View className='d-flex flex-1'>
+                <View className='normal-item__key' onClick={() => handleDigitInput('4')}>4</View>
+                <View className='normal-item__key' onClick={() => handleDigitInput('5')}>5</View>
+                <View className='normal-item__key' onClick={() => handleDigitInput('6')}>6</View>
+              </View>
+
+              <View className='d-flex flex-1'>
+                <View className='normal-item__key' onClick={() => handleDigitInput('7')}>7</View>
+                <View className='normal-item__key' onClick={() => handleDigitInput('8')}>8</View>
+                <View className='normal-item__key' onClick={() => handleDigitInput('9')}>9</View>
               </View>
 
               <View className='d-flex flex-1'>

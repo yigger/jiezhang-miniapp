@@ -28,7 +28,7 @@ const tabs = [
 ]
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState(tabs[3])
+  const [activeTab, setActiveTab] = useState(tabs[0])
   return (<>
     <BasePage
       withTabBar
