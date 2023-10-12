@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Taro from '@tarojs/taro'
+import { useDidShow } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import jz from '@/jz'
 import Statements from '@/components/Statements'
@@ -20,26 +20,27 @@ export default function Index() {
     "show_notice_bar": false
   })
   const [statements, setStatements] = useState([])
-  useEffect(() => {
-    async function initData() {
-      const [headerSt, statementSt] = await Promise.all([jz.api.main.header(), jz.api.main.statements()])
-      if (headerSt.isSuccess) {
-        setHeader(headerSt.data)
-      }
-      if (statementSt.isSuccess) {
-        setStatements(statementSt.data)
-      }
+
+  const initIndexData = async function() {
+    const [headerSt, statementSt] = await Promise.all([jz.api.main.header(), jz.api.main.statements()])
+    if (headerSt.isSuccess) {
+      setHeader(headerSt.data)
     }
-    initData()
+    if (statementSt.isSuccess) {
+      setStatements(statementSt.data)
+    }
+  }
+
+  useEffect(() => {
+    initIndexData()
   }, [])
 
+  // 创建完毕后，返回首页需要重新拉取账单列表.
+  useDidShow(() => initIndexData())
+
   return (
-    // <Root
-    //   withTabBar
-    // >
     <View className='jz-pages__index'>
       <Header header={header}></Header>
-      {/* <Budget></Budget> */}
       <Button
         title='记一笔'
         onClick={() => {
@@ -48,13 +49,6 @@ export default function Index() {
       />
       <StatementList statements={statements}></StatementList>
     </View>
-    // </Root>
-  )
-}
-
-function Budget () {
-  return (
-    <View>预算设置</View>
   )
 }
 

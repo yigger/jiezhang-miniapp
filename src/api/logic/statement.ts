@@ -13,8 +13,8 @@ export default class Statement extends Request {
   }
 
   // 获取创建账单时的资产列表
-  assetsWithForm() {
-    return this.get('/statements/assets')
+  assetsWithForm(params={}) {
+    return this.get('/statements/assets', params)
   }
 
   // 获取最近常用的三个分类
@@ -30,7 +30,7 @@ export default class Statement extends Request {
   }
 
   // 创建账单
-  create(data: StatementForm) {
-    return this.post('/statements', data)
+  create(data) {
+    return this.post('/statements', { statement: data })
   }
 }

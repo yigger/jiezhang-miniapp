@@ -24,11 +24,15 @@ export default function CategorySelect({
           {
             loading ? <Loading active={true} /> : (
               <>
-                <CategoryContent
-                  title='常用分类'
-                  data={frequent}
-                  handleClick={handleClick}
-                />
+                {
+                  frequent 
+                    && frequent.length > 0 
+                    &&  <CategoryContent
+                          title='常用分类'
+                          data={frequent}
+                          handleClick={handleClick}
+                        />
+                }
 
                 {
                   data.map((item) => {

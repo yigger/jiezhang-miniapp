@@ -3,11 +3,9 @@ import { View } from '@tarojs/components'
 import BasePage from '@/components/common/BasePage'
 import ExpendForm from '@/components/statementForm/ExpendForm'
 import IncomeForm from '@/components/statementForm/IncomeForm'
+import TransferForm from '@/components/statementForm/TransferForm'
+import RepaymentForm from '@/components/statementForm/RepaymentForm'
 import { Tabs } from '@/src/common/components'
-
-function TransferForm() {
-  return (<View>转账</View>)
-}
 
 function DebtForm() {
   return (<View>还债</View>)
@@ -23,6 +21,9 @@ export default class Form extends React.Component {
         { id: 2, title: '收入' },
         { id: 3, title: '转账' },
         { id: 4, title: '还债' }
+        // { id: 5, title: '借贷' },
+        // { id: 6, title: '报销' },
+        // { id: 7, title: '代付' }
       ]
     }
   }
@@ -54,7 +55,7 @@ export default class Form extends React.Component {
       }
       case 4: {
         formComponent = (
-          <DebtForm />
+          <RepaymentForm />
         )
         break;
       }

@@ -61,15 +61,25 @@ export default function Profile () {
   const [userInfo, setUserInfo] = useState({})
   const [version, setVersion] = useState('')
   const [themeName, setThemeName] = useState(jz.store.currentTheme.name)
+  // const []
+
   const themeContext = useContext(BasePageContext)
   // console.log(themeContext)
 
   useEffect(() => {
+    // jz.api.account_books.getAccountBooks().then((res) => {
+    //   console.log(res)
+    // })
+
     jz.api.users.getUserInfo().then((res) => {
       const { user, version } = res.data
       setUserInfo(user)
       setVersion(version)
     })
+
+    
+
+    
   }, [])
 
   function setTheme({ detail }) {

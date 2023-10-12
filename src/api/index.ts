@@ -4,6 +4,8 @@ import Main from './logic/main'
 import User from './logic/user'
 import Category from './logic/category'
 import Asset from './logic/asset'
+import AccountBook from './logic/account_book'
+
 
 export class Api extends Request {
 
@@ -56,4 +58,15 @@ export class Api extends Request {
       return this._assets
     }
   }
+
+  private _account_books: AccountBook = null
+  get account_books(): AccountBook {
+    if (!!this.account_books) {
+      return this._account_books
+    } else {
+      this._account_books = new AccountBook(this.endpoint, this.appid)
+      return this._account_books
+    }
+  }
+
 }

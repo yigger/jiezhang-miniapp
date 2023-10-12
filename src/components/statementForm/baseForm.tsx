@@ -3,7 +3,6 @@ import { View, Input, Picker, Text } from '@tarojs/components'
 import { Button, Calculator } from '@/src/common/components'
 import CategorySelect from './CategorySelect'
 import jz from '@/jz'
-import { format } from 'date-fns'
 
 export default function BaseForm({
   statementType,
@@ -41,7 +40,6 @@ export default function BaseForm({
 
   // 选中分类后的 callback
   const handleCategoryItemClick = (e, item) => {
-    console.log(item)
     setCategoryName(item.name)
     setForm({ ...form, category_id: item.id })
     setCategorySelectActive(false)
@@ -88,20 +86,27 @@ export default function BaseForm({
   const submit = async () => {
     if (form.amount === '0') {
       // 请输入账单金额
+      jz.toastError("金额还没填呢~")
+      return false
     }
 
-    if (form.asset_id === '0') {
+    if (Number(form.asset_id) === 0) {
       // 请输入资产类型
-
+      jz.toastError("资产还没选呢~")
+      return false
     }
 
-    if (form.category_id === '0') {
+    if (Number(form.category_id) === 0) {
       // 请输入分类详情
-      
+      jz.toastError("分类还没选择呢~")
+      return false
     }
-
-    const st = await jz.api.statements.create(form)
-    console.log(st)
+    const { data } = await jz.api.statements.create(form)
+		if(data.status === 200) {
+			jz.router.navigateBack()
+		} else {
+			jz.toastError(data.msg)
+		}
   }
 
   return (
@@ -116,9 +121,9 @@ export default function BaseForm({
           </View>
     
           <View>
-            <View className='f-column d-flex p-4 text-align-right flex-between flex-center'>
+            <View onClick={getCategories} className='f-column d-flex p-4 text-align-right flex-between flex-center'>
               <View>分类</View>
-              <View onClick={getCategories}>{categoryName}</View>
+              <View>{categoryName}</View>
             </View>
               {
                 categoryFrequent.length > 0 ? 
@@ -134,9 +139,9 @@ export default function BaseForm({
           </View>
     
           <View>
-            <View className='f-column d-flex p-4 text-align-right flex-between flex-center'>
+            <View onClick={getAssets} className='f-column d-flex p-4 text-align-right flex-between flex-center'>
               <View>资产</View>
-              <View onClick={getAssets}>{assetName}</View>
+              <View>{assetName}</View>
             </View>
             {
               assetFrequent.length > 0 ? 
