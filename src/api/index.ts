@@ -5,6 +5,7 @@ import User from './logic/user'
 import Category from './logic/category'
 import Asset from './logic/asset'
 import AccountBook from './logic/account_book'
+import Finance from './logic/finance'
 
 
 export class Api extends Request {
@@ -66,6 +67,16 @@ export class Api extends Request {
     } else {
       this._account_books = new AccountBook(this.endpoint, this.appid)
       return this._account_books
+    }
+  }
+
+  private _finances: Finance = null
+  get finances(): Finance {
+    if (!!this._finances) {
+      return this._finances
+    } else {
+      this._finances = new Finance(this.endpoint, this.appid)
+      return this._finances
     }
   }
 

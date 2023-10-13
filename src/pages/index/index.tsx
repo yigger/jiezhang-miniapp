@@ -55,7 +55,7 @@ export default function Index() {
 function Header ({ header }) {
   return (
     <View className="jz-pages__index-header p-relative">
-      <Image src={header.bg_avatar}></Image>
+      {/* <Image src={header.bg_avatar}></Image> */}
       <View className="p-absolute p-bottom-0 p-left-0 col-pure-white w-100 pl-4 pr-4">
         <View className="mb-4">
           <View className='fs-18'>{header.position_1_human_name}</View>
