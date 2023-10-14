@@ -1,8 +1,11 @@
 import { Component } from 'react'
 import jz from './jz'
 
+import 'taro-ui/dist/style/index.scss'
+
 import './assets/fonts/index.styl'
 import './assets/styl/index.styl'
+
 
 class App extends Component {
   async onLaunch () {

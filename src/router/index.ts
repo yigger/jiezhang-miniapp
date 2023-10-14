@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro'
 export default class Router {
   private _routes: Array<string>
+  private _currentInstance: any
   // private _names: Array<string>
 
   constructor () {
@@ -8,7 +9,15 @@ export default class Router {
   }
 
   getParams() {
-    return Taro.getCurrentInstance().router.params
+    return this.getCurrentInstance().router.params
+  }
+
+  
+  getCurrentInstance() {
+    if (!this._currentInstance) {
+      this._currentInstance = Taro.getCurrentInstance()
+    }
+    return this._currentInstance
   }
 
   navigateTo ({ url, name = '' }) {

@@ -7,10 +7,6 @@ import TransferForm from '@/components/statementForm/TransferForm'
 import RepaymentForm from '@/components/statementForm/RepaymentForm'
 import { Tabs } from '@/src/common/components'
 
-function DebtForm() {
-  return (<View>还债</View>)
-}
-
 export default class Form extends React.Component {
   constructor (props) {
     super(props)

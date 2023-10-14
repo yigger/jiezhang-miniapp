@@ -9,7 +9,9 @@ export default {
     'pages/setting/category/form',
     // 资产管理
     'pages/setting/asset/index',
-    'pages/setting/asset/form'
+    'pages/setting/asset/form',
+    // 资金详情
+    'pages/assets_flow/index'
   ],
   window: {
     navigationBarTitleText: 'WeChat',

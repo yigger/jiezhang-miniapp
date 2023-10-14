@@ -3,7 +3,7 @@ import { View, Image } from '@tarojs/components'
 
 export default function Statement({ statement }) {
   return (
-    <View className='d-flex mb-3 mt-3 flex-between flex-center'>
+    <View className='d-flex pb-3 pt-3 flex-between flex-center'>
       <View className='d-flex flex-1 flex-center'>
         <View className='statement-component__icon-image'>
           <Image src={statement.icon_path}></Image>
