@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View } from '@tarojs/components'
 import BasePage from '@/components/common/BasePage'
 import ExpendForm from '@/components/statementForm/ExpendForm'
@@ -6,70 +6,75 @@ import IncomeForm from '@/components/statementForm/IncomeForm'
 import TransferForm from '@/components/statementForm/TransferForm'
 import RepaymentForm from '@/components/statementForm/RepaymentForm'
 import { Tabs } from '@/src/common/components'
+import jz from '@/jz'
 
-export default class Form extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      currentTab: 1,
-      tabs: [
-        { id: 1, title: '支出' },
-        { id: 2, title: '收入' },
-        { id: 3, title: '转账' },
-        { id: 4, title: '还债' }
-        // { id: 5, title: '借贷' },
-        // { id: 6, title: '报销' },
-        // { id: 7, title: '代付' }
-      ]
+const tabs = [
+  { id: 1, title: '支出' },
+  { id: 2, title: '收入' },
+  { id: 3, title: '转账' },
+  { id: 4, title: '还债' }
+  // { id: 5, title: '借贷' },
+  // { id: 6, title: '报销' },
+  // { id: 7, title: '代付' }
+]
+
+const StatementForm: React.FC = () => {
+  const params = jz.router.getParams()
+  const [currentTab, setCurrentTab] = useState(1)
+  const [statement, setStatement] = useState({})
+  
+
+  // NOTE: 因为创建和更新共用此模块，可以通过 componentType 进行区分
+  const [componentType, setComponentType] = useState('create')
+
+  const getStatementDetail = async (statementId: number) => {
+    const { data } = await jz.api.statements.getStatement(statementId)
+    console.log(data)
+    setStatement(data)
+  }
+
+  useEffect(() => {
+    const statementId = params.statement_id
+    if (statementId) {
+      setComponentType('update')
+      getStatementDetail(statementId)
     }
-  }
+  }, [])
 
-  tabChange (tabId) {
-    this.setState({ currentTab: tabId })
-  }
-
-  render() {
-    let formComponent = null
-    switch(this.state.currentTab) {
-      case 1: {
-        formComponent = (
-          <ExpendForm />
-        )
-        break;
+  return (
+    <BasePage
+      headerName={componentType === 'create' ? '记一笔' : '更新账单'}
+    >
+      { componentType === 'create' && 
+          <Tabs tabs={tabs}
+            current={currentTab}
+            onChange={(tabId) => {
+              setCurrentTab(tabId) 
+            }}
+          />
       }
-      case 2: {
-        formComponent = (
-          <IncomeForm />
-        )
-        break;
-      }
-      case 3: {
-        formComponent = (
-          <TransferForm />
-        )
-        break;
-      }
-      case 4: {
-        formComponent = (
-          <RepaymentForm />
-        )
-        break;
-      }
-    }
-
-    return (
-      <BasePage
-        headerName='记一笔'
-      >
-        <Tabs
-          tabs={this.state.tabs}
-          current={this.state.currentTab}
-          onChange={this.tabChange.bind(this)}
-        />
-        <View>
-          {formComponent}
-        </View>
-      </BasePage>
-    )
-  }
+      <View>
+        {
+          (() => {
+            switch(currentTab) {
+              case 1: {
+                return (<ExpendForm statement={statement} />)
+              }
+              case 2: {
+                return (<IncomeForm statement={statement} />)
+              }
+              case 3: {
+                return (<TransferForm />)
+              }
+              case 4: {
+                return (<RepaymentForm />)
+              }
+            }
+          })()
+        }
+      </View>
+    </BasePage>
+  )
 }
+
+export default StatementForm

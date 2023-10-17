@@ -57,6 +57,26 @@ class Jz {
     })
   }
 
+  confirm(text, title='提示', payload={}) {
+    return new Promise((resolve, reject) => {
+      Taro.showModal({
+        title: title,
+        content: text,
+        showCancel: true,
+        success: res => {
+          if (res.confirm) {
+            resolve(payload);
+          } else if (res.cancel) {
+            reject(payload);
+          }
+        },
+        fail: res => {
+          reject(payload);
+        }
+      });
+    })
+  }
+
   get router(): Router {
     return this._router
   }

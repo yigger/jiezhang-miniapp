@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { format } from 'date-fns'
 import BaseForm from './baseForm'
 
-export default function IncomeForm() {
+export default function IncomeForm({
+  statement
+}) {
   // 提交的表单数据
   const [form, setForm] = useState({
     type: 'income',
@@ -13,6 +15,12 @@ export default function IncomeForm() {
     time: format(new Date(), 'HH:mm'),
     description: ''
   })
+
+  useEffect(() => {
+    if (statement.id) {
+      setForm(statement)
+    }
+  }, [statement.id])
   
   return (
     <BaseForm

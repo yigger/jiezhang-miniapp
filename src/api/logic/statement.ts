@@ -33,4 +33,24 @@ export default class Statement extends Request {
   create(data) {
     return this.post('/statements', { statement: data })
   }
+
+  // 更新账单
+  update(statementId, data) {
+    return this.put(`/statements/${statementId}`, { statement: data })
+  }
+
+  // 获取账单详情
+  getDetail(statementId: number) {
+    return this.get(`/statements/detail`, {id: statementId})
+  }
+
+  // 获取账单详情
+  getStatement(statementId: number) {
+    return this.get(`/statements/${statementId}`)
+  }
+
+  // 删除账单
+  deleteStatement(statementId: number) {
+    return this.delete(`/statements/${statementId}`)
+  }
 }

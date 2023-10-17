@@ -1,9 +1,10 @@
 import React from 'react'
 import { View, Image } from '@tarojs/components'
+import jz from '@/jz'
 
 export default function Statement({ statement }) {
   return (
-    <View className='d-flex pb-3 pt-3 flex-between flex-center'>
+    <View className='d-flex pb-3 pt-3 flex-between flex-center' onClick={() => { jz.router.navigateTo({ url: `/pages/statement_detail/index?statement_id=${statement.id}` }) }}>
       <View className='d-flex flex-1 flex-center'>
         <View className='statement-component__icon-image'>
           <Image src={statement.icon_path}></Image>

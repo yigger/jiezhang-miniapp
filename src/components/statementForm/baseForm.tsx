@@ -29,14 +29,18 @@ export default function BaseForm({
   useEffect(() => {
     // 初始化常用资产
     jz.api.statements.assetFrequent().then((res) => {
-      console.log(res.data)
       setAssetFrequent(res.data)
     })
     // 初始化常用分类
     jz.api.statements.categoryFrequent(statementType).then((res) => {
       setCategoryFrequent(res.data)
     })
-  }, [])
+
+    if (form.category_name) {
+      setCategoryName(form.category_name)
+      setAssetName(form.asset_name)
+    }
+  }, [form.id])
 
   // 选中分类后的 callback
   const handleCategoryItemClick = (e, item) => {
@@ -47,7 +51,6 @@ export default function BaseForm({
 
   // 选中资产后的 callback
   const handleAssetItemClick = (e, item) => {
-    console.log(item)
     setAssetName(item.name)
     setForm({ ...form, asset_id: item.id })
     setAssetSelectActive(false)
@@ -101,7 +104,9 @@ export default function BaseForm({
       jz.toastError("分类还没选择呢~")
       return false
     }
-    const { data } = await jz.api.statements.create(form)
+
+    // 更新 or 创建
+    const { data } = form.id > 0 ? await jz.api.statements.update(form.id, form) : await jz.api.statements.create(form)
 		if(data.status === 200) {
 			jz.router.navigateBack()
 		} else {

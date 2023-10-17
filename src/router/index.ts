@@ -9,7 +9,7 @@ export default class Router {
   }
 
   getParams() {
-    return this.getCurrentInstance().router.params
+    return this.getCurrentInstance().router.params || {}
   }
 
   

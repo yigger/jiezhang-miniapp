@@ -32,7 +32,7 @@ class Request {
     return this.request('PUT', path, data, options)
   }
 
-  delete (path, data, options = {}): Promise<HttpResult> {
+  delete (path, data={}, options = {}): Promise<HttpResult> {
     return this.request('DELETE', path, data, options)
   }
 
