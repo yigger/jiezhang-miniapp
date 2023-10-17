@@ -1,4 +1,4 @@
-## 洁账 - 重制版
+## 洁账 - Taro重制版
 
-Taro v3.0.23
+Taro v3.2.0
 Taro UI

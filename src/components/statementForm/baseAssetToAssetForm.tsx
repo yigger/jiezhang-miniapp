@@ -8,19 +8,10 @@ import CategorySelect from './CategorySelect'
 
 // 组件类型：转账或者还债，两种的模板是类似的，可以公用
 export default function BaseAssetToAssetForm({
-    componentType='transfer' 
+  form,
+	setForm
 }) {
 	const [calculatorActive, setCalculatorActive] = useState(false)
-	const [form, setForm] = useState({
-		type: componentType,
-		amount: '0',
-		from_asset_id: 0,
-		to_asset_id: 0,
-		date: format(new Date(), 'yyyy-MM-dd'),
-    time: format(new Date(), 'HH:mm'),
-    description: ''
-	})
-
 	const [assetList, setAssetList] = useState({
     frequent: [],
     data: []
@@ -31,6 +22,13 @@ export default function BaseAssetToAssetForm({
 	const [fromAssetName, setFromAssetName] = useState('请选择资产')
 	const [toAssetName, setToAssetName] = useState('请选择资产')
 	const [choseActiveAsset, setChoseActiveAsset] = useState('')
+
+	useEffect(() => {
+		if (form.id > 0) {
+      setFromAssetName(form.source)
+      setToAssetName(form.target)
+    }
+	}, [form.id])
 
 	// 选中资产后的 callback
 	const handleAssetItemClick = (e, item) => {
@@ -52,7 +50,7 @@ export default function BaseAssetToAssetForm({
 		setChoseActiveAsset(assetType)
 		
 		var st
-		if (componentType === 'repayment') {
+		if (form.type === 'repayment') {
 			const type = assetType === 'from_asset_id' ? 'deposit' : 'debt'
 			st = await jz.api.statements.assetsWithForm({ type: type })
 		} else {
@@ -89,7 +87,7 @@ export default function BaseAssetToAssetForm({
       return false
     }
 
-		const { data } = await jz.api.statements.create(form)
+		const { data } = form.id > 0 ? await jz.api.statements.update(form.id, form) : await jz.api.statements.create(form)
 		if(data.status === 200) {
 			jz.router.navigateBack()
 		} else {

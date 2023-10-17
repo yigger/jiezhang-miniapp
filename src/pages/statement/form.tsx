@@ -31,6 +31,16 @@ const StatementForm: React.FC = () => {
     const { data } = await jz.api.statements.getStatement(statementId)
     console.log(data)
     setStatement(data)
+
+    if (data.type === 'expend') {
+      setCurrentTab(1)
+    } else if (data.type === 'income') {
+      setCurrentTab(2)
+    } else if (data.type === 'transfer') {
+      setCurrentTab(3)
+    } else if (data.type === 'repayment') {
+      setCurrentTab(4)
+    }
   }
 
   useEffect(() => {
@@ -64,10 +74,10 @@ const StatementForm: React.FC = () => {
                 return (<IncomeForm statement={statement} />)
               }
               case 3: {
-                return (<TransferForm />)
+                return (<TransferForm statement={statement} />)
               }
               case 4: {
-                return (<RepaymentForm />)
+                return (<RepaymentForm statement={statement} />)
               }
             }
           })()

@@ -36,7 +36,7 @@ export default function Index() {
   }, [])
 
   // 创建完毕后，返回首页需要重新拉取账单列表.
-  useDidShow(() => initIndexData())
+  useDidShow(() => jz.router.prev_routes.length > 0 && initIndexData())
 
   return (
     <View className='jz-pages__index'>

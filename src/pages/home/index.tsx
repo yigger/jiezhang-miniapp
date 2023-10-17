@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import BasePage from '@/components/common/BasePage'
+import { View } from '@tarojs/components'
 import Index from '../index'
 import Statistic from '../statistic'
 import Finance from '../finance'
@@ -38,10 +39,12 @@ export default function Home() {
       activeTab={activeTab}
       switchTab={(tab) => setActiveTab(tab)}
     >
-      { activeTab.page === 'index' && <Index /> }
-      { activeTab.page === 'statistic' && <Statistic /> }
-      { activeTab.page === 'asset' && <Finance /> }
-      { activeTab.page === 'profile' && <Profile /> }
+      <View key={activeTab}>
+        { activeTab.page === 'index' && <Index /> }
+        { activeTab.page === 'statistic' && <Statistic /> }
+        { activeTab.page === 'asset' && <Finance /> }
+        { activeTab.page === 'profile' && <Profile /> }
+      </View>
     </BasePage>
   </>)
 }

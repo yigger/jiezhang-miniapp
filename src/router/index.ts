@@ -2,10 +2,12 @@ import Taro from '@tarojs/taro'
 export default class Router {
   private _routes: Array<string>
   private _currentInstance: any
+  private _prev_routes: Array<string>
   // private _names: Array<string>
 
   constructor () {
     this._routes = []
+    this._prev_routes = []
   }
 
   getParams() {
@@ -32,6 +34,7 @@ export default class Router {
 
   navigateBack () {
     if (this.prevExist) {
+      this._prev_routes = [...this._routes]  
       this._routes.pop()
       Taro.navigateBack()
     } else {
@@ -45,5 +48,9 @@ export default class Router {
 
   get routes () {
     return this._routes
+  }
+  
+  get prev_routes() {
+    return this._prev_routes
   }
 }

@@ -4,13 +4,14 @@ import { AtAccordion, AtList, AtListItem } from 'taro-ui'
 import BasePage from '@/components/common/BasePage'
 import jz from '@/jz'
 import Statements from '@/components/Statements'
+import { useDidShow } from '@tarojs/taro'
 
 export default function AssetsFlow() {
   const [timelines, setTimelines] = useState([])
   const [headerData, setHeaderData] = useState({})
   const params = jz.router.getParams()
 
-  useEffect(() => {
+  useDidShow(() => {
     const asset_id = params.asset_id
     const getAssetDetail = async() => {
       const { data } = await jz.api.finances.getAssetDetail(asset_id)
@@ -24,7 +25,7 @@ export default function AssetsFlow() {
     }
     getAssetDetail()
     getAssetTimeLine()
-  }, [])
+  })
 
   const getAssetStatements = async (index: number, year: number, month: number) => {
     const assetId = params.asset_id

@@ -18,7 +18,7 @@ export default function Index () {
     getAssetList()
   }, [])
 
-  useDidShow(() => getAssetList())
+  useDidShow(() => jz.router.prev_routes.length > 0 && getAssetList())
 
   return (
     <View className='jz-pages__finance'>
