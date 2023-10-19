@@ -12,8 +12,8 @@ class App extends Component {
     // console.log('onLaunch')
     jz.bootstrap({
       appid: 'appid',
-      baseUrl: 'http://172.23.234.143:3000',
-      apiUrl: 'http://172.23.234.143:3000/api'
+      baseUrl: 'http://192.168.1.2/',
+      apiUrl: 'http://192.168.1.2/api'
     })
     await jz.initialize()
   } 
