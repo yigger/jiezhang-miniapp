@@ -5,7 +5,7 @@ $bottom-height ?= 80PX
   position relative
   display flex
   flex-direction column
-  // height 100vh
+  height 100vh
 
   > .page-root__header-component {
     display flex
@@ -59,8 +59,12 @@ $bottom-height ?= 80PX
 
   > .page-root__main-content {
     flex: 1
-    margin-bottom $bottom-height
+    
+    background: #f3ecdc
     // max-height: "calc(100% - %s - %s)" % ($header-height $bottom-height)
     // overflow: scroll
+  }
+  .page-root__main-height-gap {
+    height: $bottom-height
   }
 }

@@ -41,12 +41,12 @@ export default function Index() {
   return (
     <View className='jz-pages__index'>
       <Header header={header}></Header>
-      <Button
+      {/* <Button
         title='记一笔'
         onClick={() => {
           jz.router.navigateTo({ url: '/pages/statement/form' })
         }}
-      />
+      /> */}
       <StatementList statements={statements}></StatementList>
     </View>
   )
@@ -55,25 +55,38 @@ export default function Index() {
 function Header ({ header }) {
   return (
     <View className="jz-pages__index-header p-relative">
-      {/* <Image src={header.bg_avatar}></Image> */}
-      <View className="p-absolute p-bottom-0 p-left-0 col-pure-white w-100 pl-4 pr-4">
-        <View className="mb-4">
-          <View className='fs-18'>{header.position_1_human_name}</View>
-          <View className='fs-18 text-bold'>{header.position_1_amount}</View>
+      {/* < 本月 > 左右允许切换上月，下月 */}
+
+      <View className='row-item d-flex flex-between m-3'>
+        <View className='row-content-block'>
+          <View className='p-2'><Text>￥</Text><Text className='amount-item'>{header.position_1_amount}</Text></View>
+          <View className='fs-12'>{header.position_1_human_name}</View>
         </View>
-        <View className="d-flex flex-between w-100 mb-4">
-          <View>{header.position_2_human_name} {header.position_2_amount}</View>
-          <View>{header.position_3_human_name} {header.position_3_amount}</View>
+
+        <View className='row-content-block'>
+          <View className='p-2'><Text>￥</Text><Text className='amount-item'>{header.position_2_amount}</Text></View>
+          <View className='fs-12'>{header.position_2_human_name}</View>
         </View>
       </View>
+
+      {/* <View className='row-item d-flex flex-between m-3'>
+        预算列表。没想好。
+      </View> */}
+
     </View>
+    
   )
 }
 
 function StatementList ({ statements }) {
   return (
     <View className='m-3'>
-      <View className='header-with-color-bottom'>今日消费</View>
+      <View className='d-flex flex-between'>
+        <View className='header-with-color-bottom'>账单列表</View>
+        <View className='remark-statement-btn fs-12 d-flex flex-center' onClick={() => {
+          jz.router.navigateTo({ url: '/pages/statement/form' })
+        }}>+ 记一笔</View>
+      </View>
       <Statements statements={statements}></Statements>
     </View>
   )

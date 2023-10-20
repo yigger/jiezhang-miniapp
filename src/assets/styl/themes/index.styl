@@ -31,7 +31,7 @@ $pink = {
 
 $black = {
   // 顶部 header 的背景
-  primaryBgColor: #53535d
+  primaryBgColor: #7560a0
   // 顶部 header 的颜色
   primaryBgTextColor: #ffffff
   // 底部 tabBar
@@ -59,6 +59,10 @@ for themeKey, _ in $themes {
   $backgroundColor = $themes[themeKey]['backgroundColor']
   
   .jz-theme-{themeKey} {
+    display: flex
+    flex-direction: column
+    height: 100vh
+
     @import "./root"
     @import "./components/button"
     @import "./components/tab"

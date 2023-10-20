@@ -63,14 +63,16 @@ const BasePage: React.FC = observer(
   const val = context()
   return (
     <BasePageContext.Provider value={val}>
-      <View className={`jz-theme-${val.data.theme}`}>
+      <View className={`page-root jz-theme-${val.data.theme}`}>
         <View className='page-root-component' style={pageStyle}>
           {/* 顶部 */}
           { withHeader && <RootHeader headerName={headerName} /> }
           {/* 主体内容区域 */}
           <View className='page-root__main-content'>
             {children}
+            <View className='page-root__main-height-gap'></View>
           </View>
+          
           {/* TabBar 部分 */}
           { withTabBar &&
             <RootTabBar
