@@ -53,4 +53,9 @@ export default class Statement extends Request {
   deleteStatement(statementId: number) {
     return this.delete(`/statements/${statementId}`)
   }
+
+  // 搜索账单
+  searchStatements(keyword: string) {
+    return this.get('/search', {keyword: keyword})
+  }
 }

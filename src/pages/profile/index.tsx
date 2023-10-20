@@ -15,7 +15,6 @@ import "taro-ui/dist/style/components/icon.scss";
 function UserInfo ({
   userInfo
 }) {
-  // console.log(userInfo)
   return (
     <View className='user-info d-flex flex-center p-4'>
       <View className='jz-image-normal radius'>
@@ -25,7 +24,7 @@ function UserInfo ({
       <View className='username-and-desc flex-1 ml-2'>
         <View>{userInfo.name}</View>
         <View className='fs-14 col-text-mute'>
-          今天是你记账的第 {differenceInDays(new Date(), new Date(userInfo.created_at))} 天，累计记账共 {userInfo.statement_count} 笔
+          今天是你记账的第 {differenceInDays(new Date(), new Date(userInfo.created_at))} 天，累计记账共 {userInfo.persist} 笔
         </View>
       </View>
     </View>
@@ -35,7 +34,7 @@ function UserInfo ({
 function Feature() {
   return (
     <View className='d-flex p-2'>
-      <View className='flex-1 text-align-center'>
+      <View className='flex-1 text-align-center' onClick={() => { jz.router.navigateTo({url: '/pages/setting/search/search'}) }}>
         <View className='iconfont jcon-search1' style='font-size: 21PX'></View>
         <View>搜索</View>
       </View>
@@ -77,9 +76,6 @@ export default function Profile () {
       setVersion(version)
     })
 
-    
-
-    
   }, [])
 
   function setTheme({ detail }) {
@@ -99,8 +95,8 @@ export default function Profile () {
 
         <AtList>
           
-          <AtListItem title='我的账本' extraText='默认账本' arrow='right' />
-          <AtListItem title='家人共享' extraText='正与 1 人共享' arrow='right' />
+          {/* <AtListItem title='我的账本' extraText='默认账本' arrow='right' /> */}
+          {/* <AtListItem title='家人共享' extraText='正与 1 人共享' arrow='right' /> */}
           <AtListItem title='预算管理' arrow='right' />
           {/* <AtListItem title='账单图库' arrow='right' /> */}
           <AtListItem title='资产分类管理' arrow='right' onClick={() => jz.router.navigateTo({url: '/pages/setting/asset/index'})}/>
@@ -111,9 +107,9 @@ export default function Profile () {
             range={jz.store.themes.map((theme) => theme.name)}
             onChange={setTheme}
           >
-            <AtListItem title='主题设置' extraText={themeName} arrow='right' />
+            <AtListItem title='主题设置' extraText={themeName} />
           </Picker>
-          <AtListItem title='关于洁账' extraText={version} arrow='right' />
+          <AtListItem title='关于洁账' extraText={version} />
         </AtList>
       </View>
 
