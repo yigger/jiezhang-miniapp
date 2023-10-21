@@ -8,47 +8,56 @@ import { Image } from '@tarojs/components'
 import { AtList, AtListItem } from "taro-ui"
 import { Picker } from '@tarojs/components'
 import { BasePageContext } from '@/src/context/BasePageContext'
+import commonAvatar from '@/assets/images/common-avatar.png'
 
 import "taro-ui/dist/style/components/list.scss";
 import "taro-ui/dist/style/components/icon.scss";
+
+const nowStr = () => {
+  const now = new Date();
+  const currentHour = now.getHours();
+
+  if (currentHour >= 0 && currentHour < 12) {
+    return '早上好'
+  } else if (currentHour >= 12 && currentHour < 18) {
+    return '下午好'
+  } else {
+    return '晚上好'
+  }
+}
+
 
 function UserInfo ({
   userInfo
 }) {
   return (
-    <View className='user-info d-flex flex-center p-4'>
-      <View className='jz-image-normal radius'>
-        <Image src={userInfo.avatar_url}></Image>
-      </View>
+    <View className='user-info m-4 p-4'>
+      <View className='d-flex flex-center'>
+        <View className='jz-image-normal radius'>
+          <Image src={commonAvatar}></Image>
+        </View>
 
-      <View className='username-and-desc flex-1 ml-2'>
-        <View>{userInfo.name}</View>
-        <View className='fs-14 col-text-mute'>
-          今天是你记账的第 {differenceInDays(new Date(), new Date(userInfo.created_at))} 天，累计记账共 {userInfo.persist} 笔
+        <View className='username-and-desc flex-1 ml-2'>
+          <View className='fs-14 col-text-mute'>
+            <View>{nowStr()}，今天是你记账的第 {differenceInDays(new Date(), new Date(userInfo.created_at))} 天</View>
+            <View className='pt-2'>当前累计记账共 {userInfo.persist} 笔</View>
+          </View>
         </View>
       </View>
-    </View>
-  )
-}
 
-function Feature() {
-  return (
-    <View className='d-flex p-2'>
-      <View className='flex-1 text-align-center' onClick={() => { jz.router.navigateTo({url: '/pages/setting/search/search'}) }}>
-        <View className='iconfont jcon-search1' style='font-size: 21PX'></View>
-        <View>搜索</View>
-      </View>
-      <View className='flex-1 text-align-center'>
-        <View className='iconfont jcon-transaction' style='font-size: 21PX'></View>
-        <View>流水</View>
-      </View>
-      <View className='flex-1 text-align-center'>
-        <View className='iconfont jcon-piechart' style='font-size: 21PX'></View>
-        <View>报表</View>
-      </View>
-      <View className='flex-1 text-align-center'>
-        <View className='iconfont jcon-message' style='font-size: 21PX'></View>
-        <View>消息通知</View>
+      <View className='feature d-flex mt-4 pt-4'>
+        <View className='flex-1 text-align-center' onClick={() => { jz.router.navigateTo({url: '/pages/setting/search/search'}) }}>
+          <View className='iconfont jcon-search1' style='font-size: 18PX'></View>
+          <View className='fs-14'>搜索</View>
+        </View>
+        <View className='flex-1 text-align-center'>
+          <View className='iconfont jcon-transaction' style='font-size: 18PX'></View>
+          <View className='fs-14'>流水</View>
+        </View>
+        <View className='flex-1 text-align-center'>
+          <View className='iconfont jcon-piechart' style='font-size: 18PX'></View>
+          <View className='fs-14'>报表</View>
+        </View>
       </View>
     </View>
   )
@@ -66,10 +75,6 @@ export default function Profile () {
   // console.log(themeContext)
 
   useEffect(() => {
-    // jz.api.account_books.getAccountBooks().then((res) => {
-    //   console.log(res)
-    // })
-
     jz.api.users.getUserInfo().then((res) => {
       const { user, version } = res.data
       setUserInfo(user)
@@ -90,10 +95,9 @@ export default function Profile () {
     <View className='jz-pages__profile'>
       <View>
         <UserInfo userInfo={userInfo}/>
-        <Feature />
-        <View style='height: 20PX; background: #F4F4F4'></View>
+        
 
-        <AtList>
+        <AtList className='fs-14'>
           
           {/* <AtListItem title='我的账本' extraText='默认账本' arrow='right' /> */}
           {/* <AtListItem title='家人共享' extraText='正与 1 人共享' arrow='right' /> */}
