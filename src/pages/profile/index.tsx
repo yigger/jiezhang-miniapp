@@ -43,7 +43,7 @@ function UserInfo ({
             <View className='pt-2'>当前累计记账共 {userInfo.persist} 笔</View>
           </View>
         </View>
-      </View>
+      </View> 
 
       <View className='feature d-flex mt-4 pt-4'>
         <View className='flex-1 text-align-center' onClick={() => { jz.router.navigateTo({url: '/pages/setting/search/search'}) }}>
@@ -106,13 +106,13 @@ export default function Profile () {
           <AtListItem title='资产分类管理' arrow='right' onClick={() => jz.router.navigateTo({url: '/pages/setting/asset/index'})}/>
           <AtListItem title='账单分类管理' arrow='right' onClick={() => jz.router.navigateTo({url: '/pages/setting/category/index'})}/>
           <AtListItem title='意见反馈' arrow='right' />
-          <Picker
+          {/* <Picker
             mode='selector'
             range={jz.store.themes.map((theme) => theme.name)}
             onChange={setTheme}
           >
             <AtListItem title='主题设置' extraText={themeName} />
-          </Picker>
+          </Picker> */}
           <AtListItem title='关于洁账' extraText={version} />
         </AtList>
       </View>
