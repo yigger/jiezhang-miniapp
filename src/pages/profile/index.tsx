@@ -50,7 +50,7 @@ function UserInfo ({
           <View className='iconfont jcon-search1' style='font-size: 18PX'></View>
           <View className='fs-14'>搜索</View>
         </View>
-        <View className='flex-1 text-align-center'>
+        <View className='flex-1 text-align-center' onClick={() => { jz.router.navigateTo({url: '/pages/setting/statements_flow/index'}) }}>
           <View className='iconfont jcon-transaction' style='font-size: 18PX'></View>
           <View className='fs-14'>流水</View>
         </View>

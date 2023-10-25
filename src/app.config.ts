@@ -13,6 +13,7 @@ export default {
     'pages/setting/asset/form',
 
     'pages/setting/search/search',
+    'pages/setting/statements_flow/index',
 
     // 资金详情
     'pages/assets_flow/index'

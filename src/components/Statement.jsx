@@ -11,8 +11,6 @@ const isToday = (dateString) => {
 }
 
 export default function Statement({ statement }) {
-  
-
   return (
     <View className={`statement-component__item ${statement.type}`}>
       <View className='d-flex pb-3 pt-3 flex-between flex-center' onClick={() => { jz.router.navigateTo({ url: `/pages/statement_detail/index?statement_id=${statement.id}` }) }}>

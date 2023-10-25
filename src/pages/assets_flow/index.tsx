@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text } from '@tarojs/components'
-import { AtAccordion, AtList, AtListItem } from 'taro-ui'
 import BasePage from '@/components/common/BasePage'
 import jz from '@/jz'
 import Statements from '@/components/Statements'

@@ -4,7 +4,7 @@ import Statement from './Statement'
 
 export default function Statements({ statements }) {
   return (
-    <View>
+    <View className='pt-4 pb-4'>
       { statements.map((statement) => <Statement statement={statement}></Statement>) }
     </View>
   )

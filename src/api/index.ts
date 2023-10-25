@@ -6,7 +6,7 @@ import Category from './logic/category'
 import Asset from './logic/asset'
 import AccountBook from './logic/account_book'
 import Finance from './logic/finance'
-
+import SuperStatement from './logic/superStatement'
 
 export class Api extends Request {
 
@@ -77,6 +77,16 @@ export class Api extends Request {
     } else {
       this._finances = new Finance(this.endpoint, this.appid)
       return this._finances
+    }
+  }
+
+  private _super_statements: SuperStatement = null
+  get superStatements(): SuperStatement {
+    if (!!this._super_statements) {
+      return this._super_statements
+    } else {
+      this._super_statements = new SuperStatement(this.endpoint, this.appid)
+      return this._super_statements
     }
   }
 

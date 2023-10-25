@@ -1,17 +1,31 @@
 import { Component, useEffect, useState } from 'react'
 import { useDidShow } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
+
 import jz from '@/jz'
+import AssetBanner from '@/components/AssetBanner'
 
 export default function Index () {
-  const [headerData, setHeaderData] = useState({})
   const [assetList, setAssetList] = useState([])
+  const [firstColumn, setFirstColumn] = useState({})
+  const [secColumn, setSecColumn] = useState({})
+  const [thirdColumn, setThirdColumn] = useState({})
 
   const getAssetList = async () => {
     const { data } = await jz.api.finances.index()
-    console.log(data)
-    setHeaderData(data.header)
     setAssetList(data.list)
+    setFirstColumn({
+      title: '净资产',
+      amount: data.header.net_worth
+    })
+    setSecColumn({
+      title: '总资产',
+      amount: data.header.total_asset
+    })
+    setThirdColumn({
+      title: '总负债',
+      amount: data.header.total_liability
+    })
   }
 
   useEffect(() => {
@@ -22,16 +36,12 @@ export default function Index () {
 
   return (
     <View className='jz-pages__finance'>
-      <View className='jz-pages__finance-header p-4 m-4'>
-        <View>
-          <View className='fs-12'>净资产</View>
-          <View className='pt-2'>￥{headerData.net_worth}</View>
-        </View>
-        <View className='d-flex fs-12 pt-4 pb-4 flex-between'>
-          <View>总资产 ￥{headerData.total_asset}</View>
-          <View>总负债 ￥{headerData.total_liability}</View>
-        </View>
-      </View>
+      
+      <AssetBanner
+        firstColumn={firstColumn}
+        secColumn={secColumn}
+        thirdColumn={thirdColumn}
+      ></AssetBanner>
 
       {/* 资产列表 */}
       <View className='jz-pages__finance-list'>
