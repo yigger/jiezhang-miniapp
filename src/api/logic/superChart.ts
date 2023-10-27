@@ -20,5 +20,9 @@ export default class SuperChart extends Request {
   getCategoriesTop({ year, month }) {
     return this.get("/super_chart/categories_list", { year: year, month: month })
   }
+  
+  getTableSumary({ year, month }) {
+    return this.get("v2/super_chart/table_sumary", { year: year, month: month })
+  }
 
 }

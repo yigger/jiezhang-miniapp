@@ -1273,7 +1273,7 @@
     "pirates" "^4.0.0"
     "source-map-support" "^0.5.16"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.7", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.7", "@babel/runtime@^7.8.4":
   "integrity" "sha1-R9QqV7YJX0Ro2kQDiP262L6/DX0="
   "resolved" "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.13.10.tgz?cache=0&sync_timestamp=1615243066705&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.13.10.tgz"
   "version" "7.13.10"
@@ -6309,6 +6309,11 @@
   "integrity" "sha1-27+Xlexibp2ovWh4L0rdHSNwDYs="
   "resolved" "https://registry.npm.taobao.org/dequal/download/dequal-1.0.1.tgz"
   "version" "1.0.1"
+
+"dequal@^2.0.2":
+  "integrity" "sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA=="
+  "resolved" "https://registry.npmmirror.com/dequal/-/dequal-2.0.3.tgz"
+  "version" "2.0.3"
 
 "des.js@^1.0.0":
   "integrity" "sha512-Q0I4pfFrv2VPd34/vfLrFOoRmlYj3OV50i7fskps1jZWK1kApMWWT9G6RRUeYedLcBDIhnSDaUvJMb3AhUlaEA=="
@@ -14344,7 +14349,7 @@
     "raf" "^3.1.0"
     "tween-functions" "^1.0.1"
 
-"react@*", "react@^15.4.0 || ^16.0.0-alpha", "react@^16.0", "react@^16.11.0", "react@^16.13.1", "react@^16.14.0", "react@^16.8", "react@^16.8.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || 16.9.0-alpha.0", "react@>= 16.0 || < 17.0", "react@>=16.0", "react@>=16.13.0", "react@>=16.5.1", "react@>=16.9", "react@>16.0.0", "react@16 || 17", "react@16.11.0", "react@16.x":
+"react@*", "react@^15.4.0 || ^16.0.0-alpha", "react@^16.0", "react@^16.11.0", "react@^16.13.1", "react@^16.14.0", "react@^16.8", "react@^16.8.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || 16.9.0-alpha.0", "react@>= 16.0 || < 17.0", "react@>=16.0", "react@>=16.13", "react@>=16.13.0", "react@>=16.5.1", "react@>=16.9", "react@>16.0.0", "react@16 || 17", "react@16.11.0", "react@16.x":
   "integrity" "sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g=="
   "resolved" "https://registry.npmmirror.com/react/-/react-16.14.0.tgz"
   "version" "16.14.0"
@@ -16673,6 +16678,14 @@
     "lodash" "^4.17.10"
     "prop-types" "^15.7.2"
 
+"taro3-table@^1.1.2":
+  "integrity" "sha512-llanxAFYo26UQs2egzaQf0T7TErmFrDvOCsciCS+7MyLx4ApTlAXPXww2qe01eec0V9fXvmiIjh865VFegqAPg=="
+  "resolved" "https://registry.npmmirror.com/taro3-table/-/taro3-table-1.1.2.tgz"
+  "version" "1.1.2"
+  dependencies:
+    "classnames" "^2.2.6"
+    "use-deep-compare-effect" "^1.6.1"
+
 "temp@0.8.3":
   "integrity" "sha512-jtnWJs6B1cZlHs9wPG7BrowKxZw/rf6+UpGAkr8AaYmiTyTO7zQlLoST8zx/8TcUPnZmeBoB+H8ARuHZaSijVw=="
   "resolved" "https://registry.npmmirror.com/temp/-/temp-0.8.3.tgz"
@@ -17533,6 +17546,14 @@
   dependencies:
     "punycode" "1.3.2"
     "querystring" "0.2.0"
+
+"use-deep-compare-effect@^1.6.1":
+  "integrity" "sha512-kbeNVZ9Zkc0RFGpfMN3MNfaKNvcLNyxOAAd9O4CBZ+kCBXXscn9s/4I+8ytUER4RDpEYs5+O6Rs4PqiZ+rHr5Q=="
+  "resolved" "https://registry.npmmirror.com/use-deep-compare-effect/-/use-deep-compare-effect-1.8.1.tgz"
+  "version" "1.8.1"
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+    "dequal" "^2.0.2"
 
 "use-subscription@^1.0.0":
   "integrity" "sha512-LISuG0/TmmoDoCRmV5XAqYkd3UCBNM0ML3gGBndze65WITcsExCD3DTvXXTLyNcOC0heFQZzluW88bN/oC1DQQ=="

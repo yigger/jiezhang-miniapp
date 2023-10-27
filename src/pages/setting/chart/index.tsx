@@ -8,6 +8,32 @@ import { useRef } from 'react'
 import Echarts from 'taro-react-echarts'
 import echarts from '@/assets/echarts.js'
 import { getExpendLineOption, getPieOption } from '@/utils/echart_option'
+import Table from 'taro3-table'
+
+const columns = [
+  {
+    title: '日期',
+    dataIndex: 'date',
+  },
+
+  {
+    title: '支出',
+    dataIndex: 'expend',
+  },
+
+  {
+    title: '收入',
+    dataIndex: 'income'
+  },
+  {
+    title: '累计支出',
+    dataIndex: 'total_expend'
+  },
+  {
+    title: '累计结余',
+    dataIndex: 'total_surplus'
+  }
+];
 
 const formatDate = (currentDate) => {
   const regex = /(\d{4})年(\d{1,2})月/;
@@ -45,6 +71,7 @@ const ChartIndex: React.FC = () => {
     fetchPieChart(date)
     fetchLineChart(date)
     fetchCategoriesTop(date)
+    fetchTableSumary(date)
   }
   
   // 设置饼图
@@ -64,7 +91,6 @@ const ChartIndex: React.FC = () => {
   // 设置柱状图
   const fetchLineChart = async (date) => {
     const {data} = await jz.api.superCharts.getLineData({ year: date.year })
-    console.log(data)
     setTimeout(() => {
       const option = getExpendLineOption(data)
       echartLine.current?.setOption(option)
@@ -74,8 +100,14 @@ const ChartIndex: React.FC = () => {
   const [topCategories, setTopCategories] = useState([])
   const fetchCategoriesTop = async (date) => {
     const {data} = await jz.api.superCharts.getCategoriesTop({ year: date.year, month: date.month })
-    console.log(data)
     setTopCategories(data.data)
+  }
+
+  const [dataSource, setDataSource] = useState([])
+  const fetchTableSumary = async (date) => {
+    const {data} = await jz.api.superCharts.getTableSumary({ year: date.year, month: date.month })
+    setDataSource(data.data)
+    console.log(data)
   }
 
   useEffect(() => {
@@ -84,6 +116,7 @@ const ChartIndex: React.FC = () => {
     fetchPieChart(date)
     fetchLineChart(date)
     fetchCategoriesTop(date)
+    fetchTableSumary(date)
   }, [])
 
   return (
@@ -104,24 +137,24 @@ const ChartIndex: React.FC = () => {
           </Picker>
         </View>
 
-        <View className='title'>当月资产状况</View>
-        <View className='header p-2 d-flex flex-between fs-14 mb-4'>
+        <View className='title'>收支总览</View>
+        <View className='header p-2 d-flex flex-between mb-4'>
           <View className='column text-align-center'>
-            <View>{header['expend_count']}</View>
+            <View className='col-expend fs-14'>￥{header['expend_count']}</View>
             <View>总支出</View>
-            <View className={`col-${ header.expend_rise }`}>同期{ header.expend_rise == 'income' ? '增长' : '下降' } { header.expend_percent }%</View>
+            {/* <View className={`col-${ header.expend_rise }`}>同期{ header.expend_rise == 'income' ? '增长' : '下降' } { header.expend_percent }%</View> */}
           </View>
 
           <View className='column text-align-center'>
-            <View>{header['income_count']}</View>
+            <View className='col-income fs-14'>￥{header['income_count']}</View>
             <View>总收入</View>
-            <View className={`col-${ header.income_rise }`}>同期{ header.income_rise == 'income' ? '增长' : '下降' } { header.income_percent }%</View>
+            {/* <View className={`col-${ header.income_rise }`}>同期{ header.income_rise == 'income' ? '增长' : '下降' } { header.income_percent }%</View> */}
           </View>
 
           <View className='column text-align-center'>
-            <View>{header['surplus']}</View>
+            <View className='fs-14'>￥{header['surplus']}</View>
             <View>结余</View>
-            <View className={`col-${ header.surplus_rise }`}>同期{ header.surplus_rise == 'income' ? '增长' : '下降' } { header.surplus_percent }%</View>
+            {/* <View className={`col-${ header.surplus_rise }`}>同期{ header.surplus_rise == 'income' ? '增长' : '下降' } { header.surplus_percent }%</View> */}
           </View>
         </View>
 
@@ -162,6 +195,15 @@ const ChartIndex: React.FC = () => {
               })
             }
           </View>
+        </View>
+        
+        <View className='title'>每日消费一览</View>
+        <View className='text-align-center d-flex flex-center-center'>
+          <Table
+            columns={columns}
+            dataSource={dataSource}
+            scroll={ {x:'true'} }
+          />
         </View>
 
       </View>
