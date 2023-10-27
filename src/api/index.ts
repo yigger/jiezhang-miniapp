@@ -7,6 +7,9 @@ import Asset from './logic/asset'
 import AccountBook from './logic/account_book'
 import Finance from './logic/finance'
 import SuperStatement from './logic/superStatement'
+import SuperChart from './logic/superChart'
+
+
 
 export class Api extends Request {
 
@@ -87,6 +90,16 @@ export class Api extends Request {
     } else {
       this._super_statements = new SuperStatement(this.endpoint, this.appid)
       return this._super_statements
+    }
+  }
+
+  private _super_charts: SuperChart = null
+  get superCharts(): SuperChart {
+    if (!!this._super_charts) {
+      return this._super_charts
+    } else {
+      this._super_charts = new SuperChart(this.endpoint, this.appid)
+      return this._super_charts
     }
   }
 

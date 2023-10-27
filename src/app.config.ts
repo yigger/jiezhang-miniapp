@@ -14,6 +14,7 @@ export default {
 
     'pages/setting/search/search',
     'pages/setting/statements_flow/index',
+    'pages/setting/chart/index',
 
     // 资金详情
     'pages/assets_flow/index'

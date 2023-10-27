@@ -29,7 +29,7 @@
       "list": [
         {
           "name": "",
-          "pathName": "pages/setting/statements_flow/index",
+          "pathName": "pages/setting/chart/index",
           "query": "",
           "launchMode": "default",
           "scene": null

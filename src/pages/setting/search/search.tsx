@@ -26,7 +26,6 @@ const Search: React.FC = () => {
       <View>
         <AtInput
           name='value'
-          // title='标准五个字'
           type='text'
           placeholder='请输入关键字, 支持搜索金额、地址、备注'
           value={keyword}
