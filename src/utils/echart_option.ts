@@ -1,7 +1,7 @@
 export const getExpendLineOption = (data) => {
- 
   return {
-    legend: {},
+    legend: {
+    },
     tooltip: {},
     xAxis: { type: 'category', gridIndex: 0, data: data.months.map((item) => `${item}月`)},
     yAxis: [

@@ -1,5 +1,5 @@
 import { Component, useEffect, useState } from 'react'
-import { View, Image, Picker } from '@tarojs/components'
+import { CoverView, View, Image, Picker } from '@tarojs/components'
 import jz from '@/jz'
 import BasePage from '@/components/common/BasePage'
 import { format } from 'date-fns'

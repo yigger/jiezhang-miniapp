@@ -92,6 +92,7 @@ export default function CategorySetting () {
     if (e.text === '编辑') {
       jz.router.navigateTo({ url: `/pages/setting/category/form?id=${categoryItem.id}&type=${categoryItem.type}` })
     } else if (e.text === '删除') {
+      await jz.confirm("是否删除该分类？删父级分类会把子分类也删除，统计数据将丢失，谨慎操作！")
       const res = await jz.api.categories.deleteCategory(categoryItem.id)
       if (res.data && res.data.status === 200) {
         const deleteIndex = listData.findIndex((item) => item.id === categoryItem.id)
@@ -120,14 +121,16 @@ export default function CategorySetting () {
       }
 
       <View className='jz-pages__settings-categories'>
+        <View className='col-text-mute p-2 text-align-center'>Tips: 左划可以对分类进行编辑和删除哟~</View>
         <List
           data={listData}
           handleClick={handleClick}
         />
 
-        {parentId > 0 && listData.length === 0 && <View className='d-flex flex-center-center'>
-            当前分类下还没添加子分类，请点击下方按钮进行创建
-          </View>}
+        {parentId > 0 && listData.length === 0 
+          && <View className='d-flex col-text-mute flex-center-center'>
+               Tips: 当前分类下还没添加子分类，请点击进行创建
+             </View>}
       </View>
 
       <Button 

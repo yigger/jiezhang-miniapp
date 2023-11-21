@@ -1,9 +1,9 @@
 ## 洁账 - Taro重制版
 
 ## 版本依赖
-Node 17.9.1
-Taro v3.2.0
-Taro UI
+- Node 17.9.1
+- Taro v3.2.0
+- Taro UI
 
 ## 可能遇到的问题
 ```
