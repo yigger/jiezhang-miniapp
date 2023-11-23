@@ -14,7 +14,7 @@ export default class Asset extends Request {
   }
 
   getAssetIcon() {
-    return this.get('/icons/assets')
+    return this.get('/icons/assets_with_url')
   }
 
   updateAsset(id, data) {

@@ -4,6 +4,8 @@ import BasePage from '@/components/common/BasePage'
 import jz from '@/jz'
 import { Picker, Input } from '@tarojs/components'
 import { Button } from '@/src/common/components'
+import { AtInput } from 'taro-ui'
+import iconSelectDefault from '@/assets/images/icon_select_default.png'
 
 import "taro-ui/dist/style/components/input.scss"
 
@@ -75,10 +77,6 @@ export default function EditAsset () {
   }, [])
 
   const handleSubmit = async () => {
-    if (asset.parent_id > 0) {
-      setAsset({ ...asset, amount: 0 })
-    }
-
     if (asset.id === 0) {
       const st = await jz.api.assets.create(asset)
       if (st.data.status === 200) {
@@ -102,7 +100,7 @@ export default function EditAsset () {
   }
 
   const handleIconSelect = (icon) => {
-    const newIcon = { icon_url: icon.url, icon_id: icon.id }
+    const newIcon = { icon_url: icon.url, icon_id: icon.id, icon_path: icon.id }
     setAsset({ ...asset, ...newIcon })
   }
 
@@ -112,20 +110,32 @@ export default function EditAsset () {
     >
       { parentAsset && <View className='col-text-mute p-4'>在 【{parentAsset.name}】 下创建子分类</View> }
       <View>
-        <View className='d-flex p-4 flex-between jz-border-bottom-1'>
-            <View>资产名称</View>
-            <Input
-              className="text-align-right"
-              type="text"
-              placeholder='输入资产名称'
-              maxlength={20}
-              value={asset.name}
-              onInput={({ detail }) => setAsset({...asset, name: detail.value}) }
-            ></Input>
-          </View>
 
-        {asset.parent_id > 0 && <View className='d-flex p-4 flex-between jz-border-bottom-1'>
-          <View>资产余额</View>
+        <View>
+          <View className='d-flex flex-between bg-color-white'>
+            <View className='flex-1'>
+              <AtInput
+                className='p-4'
+                type='text'
+                placeholder='输入资产名称'
+                value={asset.name}
+                maxlength={10}
+                onChange={(value) => {
+                  setAsset(Object.assign(asset, {name: value}))
+                }}
+              />
+            </View>
+            
+            <View className='category-icon-default-select d-flex flex-center-center bg-color-white' onClick={() => setShowIconList(!showIconList)}>
+              <View className='jz-image-icon'>
+                <Image src={asset.icon_url || iconSelectDefault}></Image>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        {<View className='d-flex p-4 flex-between jz-border-bottom-1 bg-color-white'>
+          <View>资产结余</View>
           <Input
             className="text-align-right"
             type="digit"
@@ -135,30 +145,17 @@ export default function EditAsset () {
             onInput={({ detail }) => setAsset({...asset, amount: detail.value}) }
           ></Input>
         </View>}
-
+        
         <Picker mode='selector' range={assetTypes} onChange={changeAsset}>
-          <View className='d-flex p-4 flex-between jz-border-bottom-1'>
+          <View className='d-flex p-4 flex-between jz-border-bottom-1 bg-color-white'>
             <View>资产类型</View>
             <View>{asset.type === 'deposit' ? '存款账户' : '负债账户'}</View>
           </View>
         </Picker>
         <View className='fs-14 p-2 col-text-mute'>
           <View>说明：系统借助此选项来计算净资产和负债情况</View>
-          <View>- 存款账户：适用如银行卡、支付宝、微信等资产</View>
-          <View>- 负债账户：适用如信用卡、花呗等资产</View>
-        </View>
-
-        <View className='d-flex p-4 flex-between jz-border-bottom-1'>
-          <View>图标</View>
-          <View className='text-align-right' onClick={() => setShowIconList(!showIconList)}>
-            { asset.icon_id === 0 && <View>请选择图标</View>}
-            { asset.icon_id > 0 && (
-              <View className='jz-image-icon'>
-                <Image src={asset.icon_url}></Image>
-              </View>
-            )}
-            
-          </View>
+          <View>- 存款账户：适用于如银行卡、支付宝、微信等现有资产</View>
+          <View>- 负债账户：适用于信用卡、花呗等负债资产</View>
         </View>
 
         <Button

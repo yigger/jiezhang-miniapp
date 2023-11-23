@@ -117,7 +117,7 @@ export default function EditCategory () {
               />
             </View>
             
-            <View className='category-icon d-flex flex-center-center' onClick={() => setShowIconList(!showIconList)}>
+            <View className='category-icon-default-select d-flex flex-center-center' onClick={() => setShowIconList(!showIconList)}>
               <View className='jz-image-icon'>
                 <Image src={category.icon_url || iconSelectDefault}></Image>
               </View>
