@@ -11,6 +11,7 @@ export default {
     // 资产管理
     'pages/setting/asset/index',
     'pages/setting/asset/form',
+    'pages/setting/budget/index',
 
     'pages/setting/search/search',
     'pages/setting/statements_flow/index',

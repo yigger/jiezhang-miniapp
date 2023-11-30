@@ -8,11 +8,9 @@ import AccountBook from './logic/account_book'
 import Finance from './logic/finance'
 import SuperStatement from './logic/superStatement'
 import SuperChart from './logic/superChart'
-
-
+import Budget from './logic/budget'
 
 export class Api extends Request {
-
   private _statements: Statement = null
   get statements(): Statement {
     if (!!this._statements) {
@@ -103,4 +101,14 @@ export class Api extends Request {
     }
   }
 
+  private _budget: Budget = null
+  get budgets(): Budget {
+    if (!!this._budget) {
+      return this._budget
+    } else {
+      this._budget = new Budget(this.endpoint, this.appid)
+      return this._budget
+    }
+  }
+  
 }

@@ -4,6 +4,7 @@ import { View, Text, Image } from '@tarojs/components'
 import jz from '@/jz'
 import Statements from '@/components/Statements'
 import { Button } from '@/src/common/components'
+import { AtNoticebar } from 'taro-ui'
 
 export default function Index() {
   const [header, setHeader] = useState({
@@ -40,6 +41,7 @@ export default function Index() {
 
   return (
     <View className='jz-pages__index'>
+      <AtNoticebar>这是 NoticeBar 通告栏</AtNoticebar>
       <Header header={header}></Header>
       {/* <Button
         title='记一笔'
