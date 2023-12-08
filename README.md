@@ -25,3 +25,6 @@
 
 referer: https://github.com/ant-design/ant-design-pro/issues/9272
 ```
+
+3. 由nodejs升级引起的构建错误：0308010C:digital envelope routines::unsupported
+https://juejin.cn/post/7202639428132044858
