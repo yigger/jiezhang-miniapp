@@ -1,10 +1,9 @@
 import { Component, useContext, useState } from 'react'
-import { View, Image, Button } from '@tarojs/components'
+import { View, Image, Button, Text } from '@tarojs/components'
 import jz from '@/jz'
 import { useEffect } from 'react'
 import BasePage from '@/components/common/BasePage'
 import { AtProgress } from 'taro-ui'
-import { AtModal, AtModalHeader, AtModalContent, AtModalAction } from "taro-ui"
 
 export default function BudgetPage () {
   const [headerData, setHeaderData] = useState({})
@@ -33,8 +32,8 @@ export default function BudgetPage () {
     >
       <View className='jz-pages__budget'>
         <View className='header-banner p-4'>
-          <View className='text-align-center'>
-            <View>￥{headerData['amount']}</View>
+          <View className='text-align-center' onClick={() => {jz.router.navigateTo({url: "/pages/setting/budget_form/index?id=0"})} }>
+            <View>￥{headerData['amount']} <Text className='iconfont jcon-editor'></Text></View>
             <View className='subtitle fs-12'>支出总预算</View>
           </View>
 
@@ -66,16 +65,6 @@ export default function BudgetPage () {
             }) 
           }
         </View>
-
-        <AtModal isOpened>
-          <AtModalHeader>标题</AtModalHeader>
-          <AtModalContent>
-            这里是正文内容，欢迎加入京东凹凸实验室
-            这里是正文内容，欢迎加入京东凹凸实验室
-            这里是正文内容，欢迎加入京东凹凸实验室
-          </AtModalContent>
-          <AtModalAction> <Button>取消</Button> <Button>确定</Button> </AtModalAction>
-        </AtModal>
       </View>
 
     </BasePage>
