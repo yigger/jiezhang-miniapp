@@ -105,7 +105,7 @@ export default function Profile () {
           {/* <AtListItem title='账单图库' arrow='right' /> */}
           <AtListItem title='资产管理' arrow='right' onClick={() => jz.router.navigateTo({url: '/pages/setting/asset/index'})}/>
           <AtListItem title='分类管理' arrow='right' onClick={() => jz.router.navigateTo({url: '/pages/setting/category/index'})}/>
-          <AtListItem title='意见反馈' arrow='right' />
+          <AtListItem title='意见反馈' arrow='right' onClick={() => jz.router.navigateTo({url: '/pages/setting/feedback/index'})} />
           {/* <Picker
             mode='selector'
             range={jz.store.themes.map((theme) => theme.name)}

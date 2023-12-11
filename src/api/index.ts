@@ -9,6 +9,7 @@ import Finance from './logic/finance'
 import SuperStatement from './logic/superStatement'
 import SuperChart from './logic/superChart'
 import Budget from './logic/budget'
+import Chaos from './logic/chaos'
 
 export class Api extends Request {
   private _statements: Statement = null
@@ -111,4 +112,13 @@ export class Api extends Request {
     }
   }
   
+  private _chaos: Chaos = null
+  get chaos(): Chaos {
+    if (!!this._chaos) {
+      return this._chaos
+    } else {
+      this._chaos = new Chaos(this.endpoint, this.appid)
+      return this._chaos
+    }
+  }
 }

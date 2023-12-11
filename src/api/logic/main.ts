@@ -2,7 +2,7 @@ import Request from '../request'
 
 export default class Main extends Request {
   async header () {
-    const st = await this.get('header')
+    const st = await this.get('v2/index/header')
     return st
   }
   

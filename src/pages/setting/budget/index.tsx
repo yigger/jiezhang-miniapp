@@ -10,14 +10,12 @@ export default function BudgetPage () {
   const [parentList, setParentList] = useState([])
 
   const getHeaderData = async () => {
-    const { data } = await jz.api.budgets.getHeaderData()
-    console.log(data)
+    const { data } = await jz.api.budgets.getSummary()
     setHeaderData(data)
   }
 
   const getParentData = async () => {
     const { data } = await jz.api.budgets.getParentList()
-    console.log(data)
     setParentList(data)
   }
 
