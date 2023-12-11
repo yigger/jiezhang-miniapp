@@ -26,7 +26,7 @@ export default function Statement({ statement }) {
         </View>
 
         <View className='d-flex flex-center-center flex-column'>
-          <View>{statement.money}</View>
+          <View className={`col-${statement.type}`}>{statement.money}</View>
           {/* <View className='fs-12 col-text-mute'>支出</View> */}
         </View>
       </View>

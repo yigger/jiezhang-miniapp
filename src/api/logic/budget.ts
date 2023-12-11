@@ -9,6 +9,10 @@ export default class Budget extends Request {
     return this.get('budgets/parent')
   }
 
+  getCtegoryBudget({category_id}) {
+    return this.get('budgets/' + category_id)
+  }
+
   updateRootAmount({amount}) {
     return this.put('budgets/0', { type: 'user', amount: amount})
   }
