@@ -2,16 +2,12 @@ import Taro from "@tarojs/taro"
 
 import { Api } from './api'
 import { observable } from 'mobx'
-import Store from './stores'
 import Router from './router'
-
 class Jz {
-
   private _appid: string
   private _baseUrl: string
   private _apiUrl: string
   private _api: Api
-  private _store: Store
   // 路由，全站的跳转都必须经过此路由
   private _router: Router
   
@@ -28,7 +24,6 @@ class Jz {
     this._baseUrl = baseUrl
     this._apiUrl = apiUrl
     this._api = new Api(this.apiUrl, this.appId)
-    this._store = new Store()
     this._router = new Router()
     this.systemInfo = Taro.getSystemInfoSync()
   }
@@ -99,10 +94,6 @@ class Jz {
 
   get api(): Api {
     return this._api
-  }
-
-  get store(): Store {
-    return this._store
   }
 }
 

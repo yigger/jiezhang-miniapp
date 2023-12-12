@@ -1,53 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useDidShow } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import jz from '@/jz'
 import Statements from '@/components/Statements'
 import { Button } from '@/src/common/components'
-import { AtNoticebar } from 'taro-ui'
 import { AtProgress } from 'taro-ui'
+import { HomeStoreContext } from "@/src/stores";
+import { observer } from 'mobx-react';
 
-export default function Index() {
-  const [header, setHeader] = useState({
-    "month_expend": 0,
-    "today_expend": 0,
-    "month_budget": 0,
-    "use_pencentage": 0,
-    "show_notice_bar": false
-  })
-  const [statements, setStatements] = useState([])
-
-  const initIndexData = async function() {
-    const [headerSt, statementSt] = await Promise.all([jz.api.main.header(), jz.api.main.statements()])
-    if (headerSt.isSuccess) {
-      setHeader(headerSt.data.data)
-    }
-    if (statementSt.isSuccess) {
-      setStatements(statementSt.data)
-    }
-  }
+const Index = observer(() => {
+  const store: HomeStoreContext = useContext(HomeStoreContext);
 
   useEffect(() => {
-    initIndexData()
+    store.initHomeData()
   }, [])
-
-  // 创建完毕后，返回首页需要重新拉取账单列表.
-  useDidShow(() => jz.router.prev_routes.length > 0 && initIndexData())
 
   return (
     <View className='jz-pages__index'>
       {/* <AtNoticebar>这是 NoticeBar 通告栏</AtNoticebar> */}
-      <Header header={header}></Header>
+      <Header header={store.indexHeader}></Header>
       <Button
         title='记一笔'
         onClick={() => {
           jz.router.navigateTo({ url: '/pages/statement/form' })
         }}
       />
-      <StatementList statements={statements}></StatementList>
+      <StatementList statements={store.statements}></StatementList>
     </View>
   )
-}
+})
 
 function Header ({ header }) {
   return (
@@ -92,3 +73,5 @@ function StatementList ({ statements }) {
     </View>
   )
 }
+
+export default Index

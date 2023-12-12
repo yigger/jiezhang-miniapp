@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
 import jz from '@/jz'
 import { View } from '@tarojs/components'
-import { BasePageContext, context } from '@/src/context/BasePageContext'
-import { observer } from 'mobx-react';
+// import { BasePageContext, context } from '@/src/context/BasePageContext'
+import { observer, Provider } from 'mobx-react';
+import { ThemeStoreContext, HomeStoreContext } from "@/src/stores";
 
 const RootHeader: React.FC = ({
   headerName
@@ -60,10 +61,13 @@ const BasePage: React.FC = observer(
   const pageStyle = {
     paddingTop: jz.systemInfo.statusBarHeight + 46
   }
-  const val = context()
+
   return (
-    <BasePageContext.Provider value={val}>
-      <View className={`page-root jz-theme-${val.data.theme}`}>
+    <Provider
+      home_store={HomeStoreContext}
+      theme_store={ThemeStoreContext}
+    >
+      <View className={`page-root jz-theme-black`}>
         <View className='page-root-component' style={pageStyle}>
           {/* 顶部 */}
           { withHeader && <RootHeader headerName={headerName} /> }
@@ -83,7 +87,7 @@ const BasePage: React.FC = observer(
           }
         </View>
       </View>
-    </BasePageContext.Provider>
+    </Provider>
   )
 })
 

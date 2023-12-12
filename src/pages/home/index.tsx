@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import BasePage from '@/components/common/BasePage'
 import { View } from '@tarojs/components'
 import Index from '../index'

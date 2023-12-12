@@ -7,7 +7,6 @@ import { differenceInDays } from 'date-fns'
 import { Image } from '@tarojs/components'
 import { AtList, AtListItem } from "taro-ui"
 import { Picker } from '@tarojs/components'
-import { BasePageContext } from '@/src/context/BasePageContext'
 import commonAvatar from '@/assets/images/common-avatar.png'
 
 import "taro-ui/dist/style/components/list.scss";
@@ -68,11 +67,6 @@ function UserInfo ({
 export default function Profile () {
   const [userInfo, setUserInfo] = useState({})
   const [version, setVersion] = useState('')
-  const [themeName, setThemeName] = useState(jz.store.currentTheme.name)
-  // const []
-
-  const themeContext = useContext(BasePageContext)
-  // console.log(themeContext)
 
   useEffect(() => {
     jz.api.users.getUserInfo().then((res) => {
@@ -84,11 +78,7 @@ export default function Profile () {
   }, [])
 
   function setTheme({ detail }) {
-    const theme = jz.store.themes[detail.value]
-    setThemeName(theme.name)
-    jz.store.setTheme(theme)
-    console.log(theme.value)
-    themeContext.actions.setTheme(theme.value)
+    
   }
 
   return (
